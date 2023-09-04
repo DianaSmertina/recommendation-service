@@ -4,6 +4,7 @@ const cors = require("cors");
 const sequelize = require("./db");
 const models = require("./models/models");
 require("pg");
+const router = require("./routes/index");
 
 class Server {
     app = express();
@@ -22,10 +23,14 @@ class Server {
     addMiddleware() {
         this.app.use(
             cors({
-                origin: ["https://sweet-kheer-626c63.netlify.app", "http://localhost:5173/"],
+                origin: [
+                    "https://sweet-kheer-626c63.netlify.app",
+                    "http://localhost:5173/",
+                ],
             })
         );
         this.app.use(express.json());
+        this.app.use("/", router);
     }
 }
 
