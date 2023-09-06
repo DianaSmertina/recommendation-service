@@ -16,6 +16,10 @@ class CustomError extends Error {
     static forbidden(message) {
         return new CustomError(403, message);
     }
+
+    static unAuthorized(message) {
+        return new CustomError(401, message);
+    }
 }
 
 module.export = CustomError;

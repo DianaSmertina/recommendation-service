@@ -1,6 +1,7 @@
 const { User } = require("../models/models");
 const CustomError = require("../error/customError");
 const bcrypt = require("bcryptjs");
+const tokenService = require("../services/tokenService");
 
 class UserController {
     async signIn(req, res, next) {
@@ -14,23 +15,25 @@ class UserController {
             user.password
         );
         if (!isRightPassword) return next(CustomError.badRequest("Wrong password"));
-        return res.status(200).json("Authorization successfully completed");    
+        const token = tokenService.generateToken({id: user.id, email, isAdmin: user.isAdmin});
+        return res.status(200).json({token});    
     }
 
     async signUp(req, res, next) {
         const { email, password, name, isAdmin = false } = await req.body;
         const isExist = await User.findOne({ where: { email } });
-        console.log(isExist);
         if (isExist) {
             return next(CustomError.badRequest("This email is already taken"));
         }
         const passwordHash = bcrypt.hashSync(password, 7);
         const newUser = await User.create({email, name, password: passwordHash, isAdmin});
-        return res.status(200).json("Registration successfully completed");
+        const token = tokenService.generateToken({id: newUser.id, email, isAdmin});
+        return res.status(200).json({token});
     }
 
     async isAuth(req, res) {
-        return res.json("Hi!");
+        const token = tokenService.generateToken({id: req.id, email: req.email, isAdmin: req.isAdmin});
+        return res.status(200).json({token});
     }
 }
 

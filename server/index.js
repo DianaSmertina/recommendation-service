@@ -4,7 +4,7 @@ const cors = require("cors");
 const sequelize = require("./db");
 const models = require("./models/models");
 require("pg");
-const router = require("./routers/index");
+const router = require("./routers/mainRouter");
 const errorHandler = require("./error/errorHandler");
 
 class Server {

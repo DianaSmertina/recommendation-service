@@ -1,5 +1,18 @@
+import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/userSlice";
+
+import AuthForm from "./components/auth/AuthForm";
+
 function App() {
-    return <h1>Hello!</h1>;
+    const dispatch = useDispatch();
+    dispatch(setUser("User"));
+
+    return (
+        <Routes>
+            <Route path="/" element={<AuthForm />} />
+        </Routes>
+    );
 }
 
 export default App;
