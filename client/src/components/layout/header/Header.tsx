@@ -1,5 +1,11 @@
+import { Row } from "react-bootstrap";
+
 function Header() {
-    return (<header>header</header>);
+    return (
+        <Row>
+            <header>header</header>
+        </Row>
+    );
 }
 
 export default Header;

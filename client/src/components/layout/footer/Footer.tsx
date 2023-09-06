@@ -1,5 +1,7 @@
+import { Row } from "react-bootstrap";
+
 function Footer() {
-    return (<footer>footer</footer>);
+    return (<Row><footer>footer</footer></Row>);
 }
 
 export default Footer;
