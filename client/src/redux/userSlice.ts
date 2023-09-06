@@ -1,17 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type SliceState = {
-   email: string | null;
+    id: number | null;
+    email: string | null;
+    isAdmin: false | null;
 };
 
-const initialState: SliceState = { email: null };
+const initialState: SliceState = { id: null, email: null, isAdmin: null };
 
 export const userSlice = createSlice({
     name: "User",
     initialState,
     reducers: {
-        setUser(state, action: { payload: string; type: string }) {
-            state.email = action.payload;
+        setUser(state, action) {
+            state.id = action.payload.id;
+            state.email = action.payload.email;
+            state.isAdmin = action.payload.isAdmin;
         },
     },
 });
