@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 
 import { IUser } from "../../types/types";
+import { Api } from "../../api/api";
 
 function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     const {
@@ -13,8 +14,13 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
         mode: "onSubmit",
     });
 
-    const onSubmit: SubmitHandler<IUser> = () => {
-
+    const onSubmit: SubmitHandler<IUser> = async (formData) => {
+        if (formType === "signIn") {
+            console.log(await Api.signIn({
+                email: formData.email,
+                password: formData.password || "",
+            }), document.cookie);
+        }
     }
 
     return (

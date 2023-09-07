@@ -2,7 +2,6 @@ const express = require("express");
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 const sequelize = require("./db");
-const models = require("./models/models");
 require("pg");
 const router = require("./routers/mainRouter");
 const cookieParser = require("cookie-parser");
@@ -23,15 +22,12 @@ class Server {
     }
 
     addMiddleware() {
-        this.app.use(cors());
-        // this.app.use(
-        //     cors({
-        //         origin: [
-        //             "https://sweet-kheer-626c63.netlify.app",
-        //             "http://localhost:5173/",
-        //         ],
-        //     })
-        // );
+        this.app.use(
+            cors({
+                credentials: true,
+                origin: "http://localhost:5173",
+            })
+        );
         this.app.use(express.json());
         this.app.use(cookieParser());
         this.app.use("/", router);
