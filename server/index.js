@@ -5,7 +5,7 @@ const sequelize = require("./db");
 const models = require("./models/models");
 require("pg");
 const router = require("./routers/mainRouter");
-const errorHandler = require("./error/errorHandler");
+const cookieParser = require("cookie-parser");
 
 class Server {
     app = express();
@@ -33,8 +33,8 @@ class Server {
         //     })
         // );
         this.app.use(express.json());
+        this.app.use(cookieParser());
         this.app.use("/", router);
-        this.app.use(errorHandler);
     }
 }
 

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const CustomError = require("../error/customError");
 
 module.exports = function (req, res, next) {
     try {

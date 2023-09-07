@@ -9,4 +9,11 @@ const User = sequelize.define("user", {
     isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
 });
 
-module.exports = {User};
+const Token = sequelize.define("token", {
+    refreshToken: {type: DataTypes.STRING},
+})
+
+User.hasOne(Token);
+Token.belongsTo(User);
+
+module.exports = {User, Token};

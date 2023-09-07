@@ -6,7 +6,7 @@ import Footer from "./footer/Footer";
 
 function Layout() {
     return (
-        <Container fluid className="vh-100 d-flex flex-column justify-content-between align-items-center">
+        <Container fluid className="vh-100 p-0 m-0 d-flex flex-column justify-content-between align-items-center">
             <Header />
             <Outlet />
             <Footer />
