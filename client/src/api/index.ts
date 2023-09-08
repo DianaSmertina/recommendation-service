@@ -31,7 +31,8 @@ api.interceptors.response.use(
                     `${base}/refresh`,
                     { withCredentials: true }
                 );
-                localStorage.setItem("token", response.data.accessToken);
+                localStorage.setItem("token", response.data.tokens.accessToken);
+                localStorage.setItem("userId", JSON.stringify(response.data.userData));
                 return api.request(originalRequest);
             } catch (e) {
                 console.log("Unauthorized");

@@ -8,6 +8,8 @@ import UserApi from "../../api/UserApi";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     const {
@@ -18,6 +20,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
         mode: "onSubmit",
     });
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmit: SubmitHandler<IUser> = async (formData) => {
         let tokensData: AxiosResponse<ITokenResponse>;
@@ -34,7 +37,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                     name: formData.name || "",
                 });
             }
-            localStorage.setItem("token", tokensData.data.accessToken);
+            updateUserInfo(tokensData.data);
             navigate("/");
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -50,6 +53,13 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
             }
         }
     };
+
+    const updateUserInfo = (data: ITokenResponse) => {
+        localStorage.setItem("token", data.tokens.accessToken);
+        const userData = data.userData;
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch(setUser({id: userData.id, email: userData.email, isAdmin: userData.isAdmin}));
+    }
 
     return (
         <>

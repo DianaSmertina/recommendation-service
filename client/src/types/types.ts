@@ -7,6 +7,13 @@ export interface IUser {
 }
 
 export interface ITokenResponse {
-    accessToken: string;
-    refreshToken: string;
+    tokens: {
+        accessToken: string;
+        refreshToken: string;
+    };
+    userData: {
+        id: number;
+        email: string;
+        isAdmin: boolean;
+    }
 }

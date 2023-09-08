@@ -17,9 +17,7 @@ class TokenService {
         if (token) {
             await Token.update(
                 { refreshToken },
-                {
-                    where: { userId },
-                }
+                { where: { userId }}
             );
         } else {
             await Token.create({ userId, refreshToken });
@@ -47,6 +45,11 @@ class TokenService {
 
     async findRefreshToken(refreshToken) {
         const tokenData = await Token.findOne({ where: { refreshToken } });
+        return tokenData;
+    }
+
+    async deleteToken(refreshToken) {
+        const tokenData = await Token.destroy({ where: { refreshToken } });
         return tokenData;
     }
 }
