@@ -5,6 +5,10 @@ const sequelize = require("./db");
 require("pg");
 const router = require("./routers/mainRouter");
 const cookieParser = require("cookie-parser");
+var whitelistDomain = [
+    "http://localhost:5173",
+    "https://sweet-kheer-626c63.netlify.app",
+];
 
 class Server {
     app = express();
@@ -25,7 +29,10 @@ class Server {
         this.app.use(
             cors({
                 credentials: true,
-                origin: "http://localhost:5173",
+                origin: function (origin, callback) {
+                    const originIsWhitelisted = whitelistDomain.indexOf(origin) !== -1;
+                    callback(null, originIsWhitelisted);
+                },
             })
         );
         this.app.use(express.json());
