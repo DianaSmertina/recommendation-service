@@ -2,6 +2,7 @@ const { User } = require("../models/models");
 const bcrypt = require("bcryptjs");
 const tokenService = require("../services/tokenService");
 
+maxTokenAge = 30 * 24 * 60 * 60 * 1000;
 class UserController {
     async signIn(req, res) {
         try {
@@ -16,9 +17,8 @@ class UserController {
                 isAdmin: user.isAdmin,
             });
             await tokenService.saveRefreshToken(user.id, token.refreshToken);
-            const maxAge = 30 * 24 * 60 * 60 * 1000;
             res.cookie("refreshToken", token.refreshToken, {
-                maxAge,
+                maxAge: maxTokenAge,
                 httpOnly: true,
             });
             return res.status(200).json({ token });
@@ -27,7 +27,7 @@ class UserController {
         }
     }
 
-    async signUp(req, res, next) {
+    async signUp(req, res) {
         try {
             const { email, password, name, isAdmin = false } = await req.body;
             const isExist = await User.findOne({ where: { email } });
@@ -45,9 +45,8 @@ class UserController {
                 isAdmin,
             });
             await tokenService.saveRefreshToken(newUser.id, token.refreshToken);
-            const maxAge = 30 * 24 * 60 * 60 * 1000;
             res.cookie("refreshToken", token.refreshToken, {
-                maxAge,
+                maxAge: maxTokenAge,
                 httpOnly: true,
             });
             return res.status(200).json({ token });
@@ -56,13 +55,41 @@ class UserController {
         }
     }
 
-    async isAuth(req, res) {
-        const token = tokenService.generateTokens({
-            id: req.id,
-            email: req.email,
-            isAdmin: req.isAdmin,
-        });
-        return res.status(200).json({ token });
+    // async isAuth(req, res) {
+    //     const token = tokenService.generateTokens({
+    //         id: req.id,
+    //         email: req.email,
+    //         isAdmin: req.isAdmin,
+    //     });
+    //     return res.status(200).json({ token });
+    // }
+
+    async refresh(req, res) {
+        try {
+            const {refreshToken} = req.cookies;
+            if (!refreshToken) {
+                return res.status(401).json({message: "User unauthorized"});
+            }
+            const userData = tokenService.checkRefreshToken(refreshToken);
+            const tokenDb = await tokenService.findRefreshToken(refreshToken);
+            if (!userData || !tokenDb) {
+                return res.status(401).json({message: "User unauthorized"});
+            }
+            const user = await User.findOne({ where: { id: tokenDb.userId} });
+            const newToken = tokenService.generateTokens({
+                id: user.id,
+                email: user.email,
+                isAdmin: user.isAdmin,
+            });
+            await tokenService.saveRefreshToken(user.id, newToken.refreshToken);
+            res.cookie("refreshToken", newToken.refreshToken, {
+                maxAge: maxTokenAge,
+                httpOnly: true,
+            });
+            return res.status(200).json({ newToken });
+        } catch(e) {
+            console.log(e);
+        }
     }
 }
 

@@ -5,6 +5,7 @@ const authTokenMiddleware = require("../middleware/authTokenMiddleware");
 
 router.post("/sign-in", userController.signIn);
 router.post("/sign-up", userController.signUp);
-router.get("/auth", authTokenMiddleware, userController.isAuth);
+router.get("/refresh", userController.refresh);
+// router.get("/auth", authTokenMiddleware, userController.isAuth);
 
 module.exports = router;

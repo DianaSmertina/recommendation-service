@@ -5,3 +5,8 @@ export interface IUser {
     name?: string;
     password?: string;
 }
+
+export interface ITokenResponse {
+    accessToken: string;
+    refreshToken: string;
+}
