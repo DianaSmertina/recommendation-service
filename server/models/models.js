@@ -13,7 +13,18 @@ const Token = sequelize.define("token", {
     refreshToken: {type: DataTypes.STRING},
 })
 
+const Review = sequelize.define("review", {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    reviewName: {type: DataTypes.STRING, allowNull: false},
+    productName: {type: DataTypes.STRING, allowNull: false},
+    text: {type: DataTypes.TEXT, allowNull: false},
+    authorsAssessment: {type: DataTypes.INTEGER},
+    group: {type: DataTypes.STRING, allowNull: false},
+});
+
 User.hasOne(Token);
 Token.belongsTo(User);
+User.hasMany(Review);
+Review.belongsTo(User);
 
-module.exports = {User, Token};
+module.exports = {User, Token, Review};
