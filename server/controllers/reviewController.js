@@ -38,7 +38,7 @@ class ReviewController {
         try {
             const reviews = await Review.findAll({
                 order: [["createdAt", "DESC"]],
-                limit: 10,
+                limit: 20,
             });
             return res.status(200).json(reviews);
         } catch (e) {
@@ -50,7 +50,7 @@ class ReviewController {
         try {
             const reviews = await Review.findAll({
                 order: [["authorsAssessment", "DESC"]],
-                limit: 10,
+                limit: 20,
             });
             return res.status(200).json(reviews);
         } catch (e) {

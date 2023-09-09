@@ -1,0 +1,11 @@
+@import "../../styles/constants";
+
+.card {
+   min-width: 200px !important;
+}
+
+@media (max-width: $md-width) {
+    .card {
+        min-width: 100px !important;
+    }
+}
