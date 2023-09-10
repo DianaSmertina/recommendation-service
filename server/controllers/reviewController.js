@@ -1,4 +1,5 @@
 const { Review } = require("../models/models");
+const cloudinary = require("cloudinary").v2;
 
 class ReviewController {
     async addNew(req, res) {
@@ -11,6 +12,7 @@ class ReviewController {
                 group,
                 userId,
             } = await req.body;
+            const image = await cloudinary.uploader.upload(req.file.path);
             const newReview = await Review.create({
                 reviewName,
                 productName,
@@ -18,6 +20,7 @@ class ReviewController {
                 authorsAssessment,
                 group,
                 userId,
+                image,
             });
             return res.status(200).json(newReview);
         } catch (e) {

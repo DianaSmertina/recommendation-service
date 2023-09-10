@@ -20,6 +20,7 @@ const Review = sequelize.define("review", {
     text: {type: DataTypes.TEXT, allowNull: false},
     authorsAssessment: {type: DataTypes.INTEGER},
     group: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING},
 });
 
 User.hasOne(Token);
