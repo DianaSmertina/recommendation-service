@@ -60,6 +60,16 @@ class ReviewController {
             console.log(e);
         }
     }
+
+    async getAllByUserId(req, res) {
+        try {
+            const userId = req.params.id;
+            const reviews = await Review.findAll({where: { userId }});
+            return res.status(200).json(reviews);
+        } catch(e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new ReviewController();

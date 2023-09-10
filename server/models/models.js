@@ -7,6 +7,7 @@ const User = sequelize.define("user", {
     password: {type: DataTypes.STRING, allowNull: false},
     name: {type: DataTypes.STRING, allowNull: false},
     isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
+    avatar: {type: DataTypes.STRING},
 });
 
 const Token = sequelize.define("token", {

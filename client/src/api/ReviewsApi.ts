@@ -14,6 +14,10 @@ class ReviewsApi {
     static async getLast(): Promise<AxiosResponse<Array<IReviewsResponse>>> {
         return api.get("/review/last");
     }
+
+    static async getAllByUserId(id: number): Promise<AxiosResponse<Array<IReviewsResponse>>> {
+        return api.get(`/review/user/${id}`);
+    }
 }
 
 export default ReviewsApi;

@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Layout from "./components/layout/Layout";
 import { IUser } from "./types/types";
+import UserPage from "./pages/UserPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
                 <Route index element={<MainPage />} />
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/user/:userId" element={<UserPage />} />
             </Route>
         </Routes>
     );
