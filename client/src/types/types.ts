@@ -28,4 +28,5 @@ export interface IReviewsResponse {
     userId: number,
     createdAt: string,
     updatedAt: string,
+    image: string | null,
 }

@@ -8,9 +8,10 @@ import { useRef } from "react";
 
 interface ISliderProps {
     reviews: Array<IReviewsResponse>;
+    type: string;
 }
 
-function Slider({ reviews }: ISliderProps) {
+function Slider({ reviews, type }: ISliderProps) {
     const slider = useRef<HTMLDivElement>(null);
 
     const arrowClickHandler = (isLeft: boolean) => {
@@ -35,7 +36,7 @@ function Slider({ reviews }: ISliderProps) {
                     ref={slider}
                 >
                     {reviews.map((el) => (
-                        <ReviewCard key={el.id} review={el} />
+                        <ReviewCard key={el.id} review={el} type={type} />
                     ))}
                 </div>
             ) : (

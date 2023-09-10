@@ -22,9 +22,9 @@ function MainPage() {
         <Container>
             <main>
                 <h2>Best reviews: </h2>
-                <Slider reviews={bestReviews}/>
+                <Slider reviews={bestReviews} type={"best"}/>
                 <h2>Last reviews: </h2>
-                <Slider reviews={lastReviews}/>
+                <Slider reviews={lastReviews} type={"last"}/>
             </main>
         </Container>
     );
