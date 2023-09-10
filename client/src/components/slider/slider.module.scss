@@ -1,4 +1,21 @@
 .slider {
     max-width: calc(100% - 140px);
     overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+.slider::-webkit-scrollbar {
+    height: 7px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+    
+    border-radius: 10px;
+    background-color: grey;
+}
+
+.slider::-webkit-scrollbar-button {
+    display: none;
 }
