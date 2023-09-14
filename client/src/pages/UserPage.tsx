@@ -18,7 +18,7 @@ function UserPage() {
     }, [userId])
 
     return (
-        <Container>
+        <Container className="h-100 py-3">
             <NewReview />
             <div>{userReviews.map((el) => Object.entries(el).map((data) => <div key={data[0]}>{data[1]}</div> ))}</div>
         </Container>

@@ -1,16 +1,17 @@
 import { Button, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import { ITokenResponse, IUser } from "../../types/types";
 import UserApi from "../../api/UserApi";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
-import BlankField from "../errors/BlankField";
+import BlankField from "../errorsHelpers/BlankField";
+import displayError from "../errorsHelpers/requestError";
 
 function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     const {
@@ -41,17 +42,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
             updateUserInfo(tokensData.data);
             navigate("/");
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                const axiosError = error as AxiosError;
-                if (axiosError.response) {
-                    const textError = axiosError.response.data as {message: string};
-                    toast.error(`Error: ${textError.message}`);
-                } else {
-                    toast.error(`Network Error: ${error.message}`);
-                }
-            } else {
-                toast.error(`Error: ${error}`);
-            }
+            displayError(error as Error);
         }
     };
 
@@ -59,8 +50,14 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
         localStorage.setItem("token", data.tokens.accessToken);
         const userData = data.userData;
         localStorage.setItem("user", JSON.stringify(userData));
-        dispatch(setUser({id: userData.id, email: userData.email, isAdmin: userData.isAdmin}));
-    }
+        dispatch(
+            setUser({
+                id: userData.id,
+                email: userData.email,
+                isAdmin: userData.isAdmin,
+            })
+        );
+    };
 
     return (
         <>

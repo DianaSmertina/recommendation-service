@@ -20,17 +20,17 @@ function Header() {
     return (
         <Row className="w-100 p-0 m-0">
             <header className="p-0">
-                <Navbar
-                    data-bs-theme="light"
-                    className="bg-body-tertiary justify-content-between"
-                >
+                <Navbar className="justify-content-between">
                     <Container>
                         <Navbar.Brand>
                             <NavLink
                                 to="/"
                                 className="text-decoration-none link-dark"
                             >
-                                Recommend!
+                                <img
+                                    src="../../../public/logo.png"
+                                    alt="review logo"
+                                />
                             </NavLink>
                         </Navbar.Brand>
                         <Nav>
