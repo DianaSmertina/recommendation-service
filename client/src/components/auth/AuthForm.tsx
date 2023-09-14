@@ -10,6 +10,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
+import BlankField from "../errors/BlankField";
 
 function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     const {
@@ -75,9 +76,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                                 required: true,
                             })}
                         />
-                        {errors.name && (
-                            <Form.Text>Please enter your name</Form.Text>
-                        )}
+                        {errors.name && <BlankField />}
                     </Form.Group>
                 )}
                 <Form.Group className="mb-3">
@@ -89,7 +88,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                             required: true,
                         })}
                     />
-                    {errors.email && <Form.Text>Please enter email</Form.Text>}
+                    {errors.email && <BlankField />}
                 </Form.Group>
                 <Form.Group className="mb-4">
                     <Form.Label>Password:</Form.Label>
@@ -100,9 +99,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                             required: true,
                         })}
                     ></Form.Control>
-                    {errors.password && (
-                        <Form.Text>Please enter password</Form.Text>
-                    )}
+                    {errors.password && <BlankField />}
                 </Form.Group>
                 <Button
                     type="submit"

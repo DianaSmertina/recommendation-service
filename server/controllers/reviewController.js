@@ -13,7 +13,7 @@ class ReviewController {
                 group,
                 userId,
             } = await req.body;
-            const image = await cloudinary.uploader.upload(req.file.path);
+            const image = (await cloudinary.uploader.upload(req.file.path)).url;
             const newReview = await Review.create({
                 reviewName,
                 productName,

@@ -30,7 +30,6 @@ function App() {
         }
         (async function() {
             const groups = await ReviewsApi.getGroups();
-            console.log(groups.data)
             dispatch(setGroups(groups.data));
         })();
     }, []);

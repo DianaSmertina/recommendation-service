@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IReviewsRequest, IReviewsResponse } from "../types/types";
+import { IReviewsResponse } from "../types/types";
 import api from ".";
 
 class ReviewsApi {
@@ -22,7 +22,7 @@ class ReviewsApi {
     }
 
     static async createReview(
-        data: IReviewsRequest
+        data: FormData
     ): Promise<AxiosResponse<IReviewsResponse>> {
         return api.post("/review/new", data);
     }

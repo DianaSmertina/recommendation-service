@@ -15,20 +15,20 @@ export interface ITokenResponse {
         id: number;
         email: string;
         isAdmin: boolean;
-    }
+    };
 }
 
 export interface IReviewsResponse {
-    id: number,
-    reviewName: string,
-    productName: string,
-    text: string,
-    authorsAssessment: number,
-    group: string,
-    userId: number,
-    createdAt: string,
-    updatedAt: string,
-    image: string | null,
+    id: number;
+    reviewName: string;
+    productName: string;
+    text: string;
+    authorsAssessment: number;
+    group: string;
+    userId: number;
+    createdAt: string;
+    updatedAt: string;
+    image: string | null;
 }
 
 export interface IReviewsRequest {
@@ -36,6 +36,7 @@ export interface IReviewsRequest {
     productName: string;
     text: string;
     authorsAssessment: number;
-    group: string;
+    group: number;
     userId: number;
+    image: File | FileList;
 }
