@@ -7,7 +7,7 @@ class UserApi {
         email: string;
         password: string;
     }): Promise<AxiosResponse<ITokenResponse>> {
-        return api.post<ITokenResponse>("/user/sign-in/", data);
+        return api.post("/user/sign-in/", data);
     }
 
     static async signUp(data: {
@@ -15,7 +15,7 @@ class UserApi {
         password: string;
         name: string;
     }): Promise<AxiosResponse<ITokenResponse>> {
-        return api.post<ITokenResponse>("/user/sign-up/", data);
+        return api.post("/user/sign-up/", data);
     }
 
     static async logout(): Promise<void> {

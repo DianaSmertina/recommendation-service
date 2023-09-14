@@ -30,3 +30,12 @@ export interface IReviewsResponse {
     updatedAt: string,
     image: string | null,
 }
+
+export interface IReviewsRequest {
+    reviewName: string;
+    productName: string;
+    text: string;
+    authorsAssessment: number;
+    group: string;
+    userId: number;
+}

@@ -36,17 +36,15 @@ function Header() {
                         <Nav>
                             {currentUserId ? (
                                 <>
-                                    <Nav.Link className="p-0">
-                                        <NavLink to={`/user/${currentUserId}`}>
-                                            <Image
-                                                src="./default.jpg"
-                                                width={40}
-                                                height={40}
-                                                roundedCircle
-                                                className="me-2"
-                                            />
-                                        </NavLink>
-                                    </Nav.Link>
+                                    <NavLink to={`/user/${currentUserId}`}>
+                                        <Image
+                                            src="../../../public/default.jpg"
+                                            width={40}
+                                            height={40}
+                                            roundedCircle
+                                            className="me-2"
+                                        />
+                                    </NavLink>
                                     <Button onClick={logOut}>Log out</Button>
                                 </>
                             ) : (

@@ -7,5 +7,6 @@ router.get("/all", reviewController.getAll);
 router.get("/last", reviewController.getLast);
 router.get("/best", reviewController.getBest);
 router.get("/user/:id", reviewController.getAllByUserId);
+router.get("/groups", reviewController.getGroups);
 
 module.exports = router;

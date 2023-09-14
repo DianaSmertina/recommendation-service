@@ -4,9 +4,11 @@ import {
     PreloadedState,
 } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
+import reviewGroupsReducer from "./reviewGroupsSlice";
 
 const rootReducer = combineReducers({
     user: userReducer,
+    reviewGroups: reviewGroupsReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

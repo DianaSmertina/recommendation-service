@@ -1,5 +1,6 @@
-const { Review } = require("../models/models");
+const { Review, ReviewGroup } = require("../models/models");
 const cloudinary = require("cloudinary").v2;
+const reviewService = require("../services/reviewService");
 
 class ReviewController {
     async addNew(req, res) {
@@ -66,6 +67,16 @@ class ReviewController {
             const userId = req.params.id;
             const reviews = await Review.findAll({where: { userId }});
             return res.status(200).json(reviews);
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    async getGroups(req, res) {
+        try {
+            await reviewService.createDefaultGroups();
+            const groups = await ReviewGroup.findAll();
+            return res.status(200).json(groups);
         } catch(e) {
             console.log(e);
         }

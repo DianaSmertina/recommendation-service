@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IReviewsResponse } from "../types/types";
+import { IReviewsRequest, IReviewsResponse } from "../types/types";
 import api from ".";
 
 class ReviewsApi {
@@ -15,8 +15,22 @@ class ReviewsApi {
         return api.get("/review/last");
     }
 
-    static async getAllByUserId(id: number): Promise<AxiosResponse<Array<IReviewsResponse>>> {
+    static async getAllByUserId(
+        id: number
+    ): Promise<AxiosResponse<Array<IReviewsResponse>>> {
         return api.get(`/review/user/${id}`);
+    }
+
+    static async createReview(
+        data: IReviewsRequest
+    ): Promise<AxiosResponse<IReviewsResponse>> {
+        return api.post("/review/new", data);
+    }
+
+    static async getGroups(): Promise<
+        AxiosResponse<Array<{ id: number; name: string }>>
+    > {
+        return api.get("review/groups");
     }
 }
 

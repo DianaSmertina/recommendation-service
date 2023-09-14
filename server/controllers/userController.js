@@ -67,15 +67,6 @@ class UserController {
         }
     }
 
-    // async isAuth(req, res) {
-    //     const token = tokenService.generateTokens({
-    //         id: req.id,
-    //         email: req.email,
-    //         isAdmin: req.isAdmin,
-    //     });
-    //     return res.status(200).json({ token });
-    // }
-
     async logOut(req, res) {
         try {
             const { refreshToken } = req.cookies;

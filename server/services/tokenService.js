@@ -3,26 +3,31 @@ const { Token } = require("../models/models");
 
 class TokenService {
     generateTokens(payload) {
-        const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: "24h",
-        });
-        const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH, {
-            expiresIn: "30d",
-        });
-        return { accessToken, refreshToken };
+        try {
+            const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+                expiresIn: "24h",
+            });
+            const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH, {
+                expiresIn: "30d",
+            });
+            return { accessToken, refreshToken };
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async saveRefreshToken(userId, refreshToken) {
-        const token = await Token.findOne({ where: { userId } });
-        if (token) {
-            await Token.update(
-                { refreshToken },
-                { where: { userId }}
-            );
-        } else {
-            await Token.create({ userId, refreshToken });
+        try {
+            const token = await Token.findOne({ where: { userId } });
+            if (token) {
+                await Token.update({ refreshToken }, { where: { userId } });
+            } else {
+                await Token.create({ userId, refreshToken });
+            }
+            return refreshToken;
+        } catch (e) {
+            console.log(e);
         }
-        return refreshToken;
     }
 
     checkRefreshToken(token) {
@@ -44,13 +49,21 @@ class TokenService {
     }
 
     async findRefreshToken(refreshToken) {
-        const tokenData = await Token.findOne({ where: { refreshToken } });
-        return tokenData;
+        try {
+            const tokenData = await Token.findOne({ where: { refreshToken } });
+            return tokenData;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async deleteToken(refreshToken) {
-        const tokenData = await Token.destroy({ where: { refreshToken } });
-        return tokenData;
+        try {
+            const tokenData = await Token.destroy({ where: { refreshToken } });
+            return tokenData;
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
