@@ -24,9 +24,15 @@ const Review = sequelize.define("review", {
     reviewName: { type: DataTypes.STRING, allowNull: false },
     productName: { type: DataTypes.STRING, allowNull: false },
     text: { type: DataTypes.TEXT, allowNull: false },
-    authorsAssessment: { type: DataTypes.INTEGER },
+    authorsAssessment: { type: DataTypes.INTEGER, validate: { min: 1, max: 10 } },
     image: { type: DataTypes.STRING },
 });
+
+const Tag = sequelize.define("tag", {
+    tag_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    tag: {type: DataTypes.STRING, unique: true, allowNull: false},
+},
+{ timestamps: false })
 
 User.hasOne(Token);
 Token.belongsTo(User);
@@ -34,5 +40,7 @@ User.hasMany(Review);
 Review.belongsTo(User);
 ReviewGroup.hasMany(Review, { foreignKey: "group" });
 Review.belongsTo(ReviewGroup, { foreignKey: "group" });
+Review.belongsToMany(Tag, {through: "reviewtag"});
+Tag.belongsToMany(Review, {through: "reviewtag"});
 
-module.exports = { User, Token, Review, ReviewGroup };
+module.exports = { User, Token, Review, ReviewGroup, Tag };

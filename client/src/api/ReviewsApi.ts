@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IReviewsResponse } from "../types/types";
+import { IReviewsResponse, ITag } from "../types/types";
 import api from ".";
 
 class ReviewsApi {
@@ -31,6 +31,12 @@ class ReviewsApi {
         AxiosResponse<Array<{ id: number; name: string }>>
     > {
         return api.get("review/groups");
+    }
+
+    static async getTags(): Promise<
+        AxiosResponse<Array<ITag>>
+    > {
+        return api.get("review/tags");
     }
 }
 

@@ -1,38 +1,51 @@
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 import MDEditor from "@uiw/react-md-editor";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { Option } from "react-bootstrap-typeahead/types/types";
 
 import { RootState } from "../../redux/store";
+import { setTags } from "../../redux/reviewsSlice";
 import ReviewsApi from "../../api/ReviewsApi";
-import { IReviewsRequest } from "../../types/types";
+import { IReviewsRequest, ITag } from "../../types/types";
 import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
 
 import styles from "./newReview.module.scss";
 
 function NewReview() {
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<IReviewsRequest>({
+    const { register, formState, handleSubmit, reset } = useForm<IReviewsRequest>({
         mode: "onSubmit",
     });
+    const { isSubmitting, errors } = formState;
     const [reviewText, setReviewText] = useState("");
     const [inFocus, setInFocus] = useState(false);
+    const [selectedTags, setSelectedTags] = useState<Array<Option>>([]);
     const reviewGroups = useSelector(
-        (state: RootState) => state.reviewGroups.groups
+        (state: RootState) => state.reviews.groups
     );
+    const reviewTags = useSelector(
+        (state: RootState) => state.reviews.tags
+    );
+    const dispatch = useDispatch();
     const userId = useSelector((state: RootState) => state.user.id);
+
+    useEffect(() => {
+        (async function () {
+            const tags = await ReviewsApi.getTags();
+            dispatch(setTags(tags.data));
+        })();
+    }, [isSubmitting, dispatch]);
 
     const onSubmit: SubmitHandler<IReviewsRequest> = async (formData) => {
         try {
             formData.userId = Number(userId);
             formData.text = reviewText;
+            formData.tags = (selectedTags as Array<ITag>).map((el) => el.tag);
             if (formData.image instanceof FileList) {
                 formData.image = formData.image[0];
                 if (formData.image.size > 500000) {
@@ -44,6 +57,9 @@ function NewReview() {
                 dataForQuery.append(el[0], el[1]);
             });
             await ReviewsApi.createReview(dataForQuery);
+            setSelectedTags([]);
+            reset();
+            setReviewText("");
         } catch (error) {
             displayError(error as Error);
         }
@@ -142,6 +158,23 @@ function NewReview() {
                                     </Form.Group>
                                 </Col>
                             </Row>
+                            <Row>
+                                <FormGroup>
+                                    <Typeahead
+                                        id="basic-typeahead-multiple"
+                                        labelKey="tag"
+                                        multiple
+                                        onChange={setSelectedTags}
+                                        options={reviewTags}
+                                        placeholder="Add tags"
+                                        selected={selectedTags}
+                                        dropup={true}
+                                        allowNew={true}
+                                        newSelectionPrefix="Add new: "
+                                        className="w-100"
+                                    />
+                                </FormGroup>
+                            </Row>
                             <MDEditor
                                 className="my-2"
                                 value={reviewText}
@@ -150,6 +183,7 @@ function NewReview() {
                             />
                             <Button
                                 type="submit"
+                                disabled={isSubmitting}
                                 variant="primary"
                                 value="Submit"
                                 className="me-2"

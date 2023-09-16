@@ -39,4 +39,10 @@ export interface IReviewsRequest {
     group: number;
     userId: number;
     image: File | FileList;
+    tags: Array<string>;
+}
+
+export interface ITag {
+    id_tag: number;
+    tag: string;
 }

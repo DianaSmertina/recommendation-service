@@ -4,11 +4,11 @@ import {
     PreloadedState,
 } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
-import reviewGroupsReducer from "./reviewGroupsSlice";
+import reviewsReducer from "./reviewsSlice";
 
 const rootReducer = combineReducers({
     user: userReducer,
-    reviewGroups: reviewGroupsReducer,
+    reviews: reviewsReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -21,4 +21,4 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore['dispatch'];
+export type AppDispatch = AppStore["dispatch"];

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/userSlice";
-import { setGroups } from "./redux/reviewGroupsSlice";
+import { setGroups } from "./redux/reviewsSlice";
 
 import MainPage from "./pages/MainPage";
 import SignIn from "./pages/SignIn";
@@ -28,7 +28,7 @@ function App() {
                 })
             );
         }
-        (async function() {
+        (async function () {
             const groups = await ReviewsApi.getGroups();
             dispatch(setGroups(groups.data));
         })();
