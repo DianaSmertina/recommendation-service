@@ -50,7 +50,6 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
         localStorage.setItem("token", data.tokens.accessToken);
         const userData = data.userData;
         localStorage.setItem("user", JSON.stringify(userData));
-        console.log(localStorage.getItem("token"));
         dispatch(
             setUser({
                 id: userData.id,

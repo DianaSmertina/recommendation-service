@@ -102,9 +102,9 @@ class ReviewController {
 
     async getByTag(req, res) {
         try {
-            const { tagId } = req.body;
+            const id = req.params.tag;
             const reviews = await Review.findAll({
-                include: [{ model: Tag, through: 'reviewtag', where: {tagId} }],
+                include: [{ model: Tag, through: 'reviewtag', where: {id} }],
             })
             return res.status(200).json(reviews);
         } catch(e) {

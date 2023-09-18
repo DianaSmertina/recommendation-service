@@ -1,10 +1,14 @@
 import { TagCloud } from "react-tagcloud";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import ReviewsApi from "../../../api/ReviewsApi";
 import { ITagForCloud } from "../../../types/types";
 
-function TagsCloud() {
+interface ITagsCloudProps {
+    setSelectedTag: Dispatch<SetStateAction<number | undefined>>;
+}
+
+function TagsCloud({setSelectedTag}: ITagsCloudProps) {
     const [tags, setTags] = useState<Array<ITagForCloud>>([]);
 
     useEffect(() => {
@@ -19,8 +23,8 @@ function TagsCloud() {
             minSize={12}
             maxSize={35}
             tags={tags}
-            className="simple-cloud"
-            onClick={(tag: ITagForCloud) => console.log(tag)}
+            className="simple-cloud mb-2"
+            onClick={(tag: ITagForCloud) => setSelectedTag(tag.id)}
         />
     );
 }

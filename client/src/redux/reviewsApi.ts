@@ -5,7 +5,7 @@ export const reviewsApi = createApi({
     reducerPath: "reviewsApi",
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
     endpoints: (builder) => ({
-        getByTag: builder.query<Array<IReviewsResponse>, string>({
+        getByTag: builder.query<Array<IReviewsResponse>, number>({
             query: (params) => {
                 return {
                     url: `review/tag/${params}`,
