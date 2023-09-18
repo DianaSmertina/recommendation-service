@@ -1,5 +1,6 @@
 import { Spinner, Image, Container } from "react-bootstrap";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 import { IReviewsResponse } from "../../types/types";
 
@@ -38,12 +39,18 @@ function Slider({ reviews, isLoading }: ISliderProps) {
                 >
                     {reviews.map((el) => (
                         <div className="me-3 mb-3" key={el.id}>
-                            <Image
-                                src={el.image || "../../../public/default.jpg"}
-                                width={80}
-                                height={80}
-                                roundedCircle
-                            />
+                            <Link to={`/review/${el.id}`}>
+                                <Image
+                                    src={
+                                        el.image ||
+                                        "../../../public/default.jpg"
+                                    }
+                                    width={80}
+                                    height={80}
+                                    roundedCircle
+                                    style={{objectFit: "cover"}}
+                                />
+                            </Link>
                         </div>
                     ))}
                 </div>

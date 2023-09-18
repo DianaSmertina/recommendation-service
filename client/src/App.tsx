@@ -11,6 +11,7 @@ import { IUser } from "./types/types";
 import UserPage from "./pages/UserPage";
 import ReviewsApi from "./api/ReviewsApi";
 import { useEffect } from "react";
+import ReviewPage from "./pages/ReviewPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/user/:userId" element={<UserPage />} />
+                <Route path="/review/:reviewId" element={<ReviewPage />} />
             </Route>
         </Routes>
     );

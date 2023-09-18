@@ -1,5 +1,6 @@
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { IReviewsResponse } from "../../types/types";
 import { formatDate, getGroupById } from "../../utilities/utilities";
@@ -11,7 +12,7 @@ interface IReviewTableProps {
     isLoading: boolean;
 }
 
-function ReviewTable({userReviews, isLoading}: IReviewTableProps) {
+function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
@@ -42,7 +43,11 @@ function ReviewTable({userReviews, isLoading}: IReviewTableProps) {
                                     <td>
                                         <input type="checkbox" />
                                     </td>
-                                    <td>{el.reviewName}</td>
+                                    <td>
+                                        <Link to={`/review/${el.id}`} className="text-decoration-none">
+                                            {el.reviewName}
+                                        </Link>
+                                    </td>
                                     <td>{el.productName}</td>
                                     <td className="d-none d-sm-block">
                                         {getGroupById(reviewGroups, +el.group)}

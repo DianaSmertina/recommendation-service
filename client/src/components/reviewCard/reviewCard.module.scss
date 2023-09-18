@@ -19,6 +19,10 @@
     max-height: 1.25rem;
 }
 
+.link {
+    color: inherit;
+}
+
 @media (max-width: $md-width) {
     .card {
         max-width: 150px !important;
