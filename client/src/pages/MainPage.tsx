@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { IReviewsResponse } from "../types/types";
 import ReviewsApi from "../api/ReviewsApi";
 import Slider from "../components/slider/Slider";
+import TagsCloud from "../components/tagsCloud/TagsCloud";
 
 function MainPage() {
     const [bestReviews, setBestReviews] = useState<Array<IReviewsResponse>>([]);
@@ -19,12 +20,13 @@ function MainPage() {
 
 
     return (
-        <Container>
+        <Container className="h-100 py-3">
             <main>
                 <h2>Best reviews: </h2>
                 <Slider reviews={bestReviews} type={"best"}/>
                 <h2>Last reviews: </h2>
                 <Slider reviews={lastReviews} type={"last"}/>
+                <TagsCloud />
             </main>
         </Container>
     );

@@ -13,7 +13,7 @@ function ReviewCard({ review, type }: ICardProps) {
     return (
         <Card className={`${styles.card} bg-light text-center m-2`}>
             <Card.Title>{review.reviewName}</Card.Title>
-            <Card.Img variant="top" src={review.image || "./default.jpg"} />
+            <Card.Img variant="top" src={review.image || "../../../public/default.jpg"} />
             <Card.Subtitle className="text-muted">{review.group}</Card.Subtitle>
             <Card.Subtitle className="my-1">{review.productName}</Card.Subtitle>
             <ListGroup variant="flush">

@@ -125,7 +125,7 @@ function NewReview() {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row className="mb-2">
                                 <Col xs={8}>
                                     <Form.Group>
                                         <Form.Label>Download cover</Form.Label>
@@ -159,7 +159,7 @@ function NewReview() {
                                 </Col>
                             </Row>
                             <Row>
-                                <FormGroup>
+                                <FormGroup className="d-flex w-100">
                                     <Typeahead
                                         id="basic-typeahead-multiple"
                                         labelKey="tag"

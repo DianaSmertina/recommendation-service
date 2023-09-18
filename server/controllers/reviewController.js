@@ -100,15 +100,6 @@ class ReviewController {
             console.log(e);
         }
     }
-
-    async getTags(req, res) {
-        try {
-            const tags = await Tag.findAll();
-            return res.status(200).json(tags);
-        } catch(e) {
-            console.log(e);
-        }
-    }
 }
 
 module.exports = new ReviewController();

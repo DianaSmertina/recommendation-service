@@ -32,7 +32,7 @@ function App() {
             const groups = await ReviewsApi.getGroups();
             dispatch(setGroups(groups.data));
         })();
-    }, []);
+    }, [currentUser, dispatch]);
 
     return (
         <Routes>

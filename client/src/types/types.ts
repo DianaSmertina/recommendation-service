@@ -46,3 +46,8 @@ export interface ITag {
     id_tag: number;
     tag: string;
 }
+
+export interface ITagForCloud {
+    value: string;
+    count: number;
+}

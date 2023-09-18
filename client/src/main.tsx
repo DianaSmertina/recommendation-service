@@ -7,6 +7,7 @@ import App from "./App.tsx";
 import { setupStore } from "./redux/store.ts";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import "./main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
