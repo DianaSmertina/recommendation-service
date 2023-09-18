@@ -5,16 +5,18 @@ import {
 } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import reviewsReducer from "./reviewsSlice";
+import { reviewsApi } from "./reviewsApi";
 
 const rootReducer = combineReducers({
     user: userReducer,
     reviews: reviewsReducer,
+    [reviewsApi.reducerPath]: reviewsApi.reducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(reviewsApi.middleware),
         preloadedState,
     });
 }

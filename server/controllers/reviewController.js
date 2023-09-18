@@ -104,8 +104,9 @@ class ReviewController {
         try {
             const { tagId } = req.body;
             const reviews = await Review.findAll({
-                include: [{ model: Tag, through: 'reviewtag', where: {id: tagId} }],
+                include: [{ model: Tag, through: 'reviewtag', where: {tagId} }],
             })
+            return res.status(200).json(reviews);
         } catch(e) {
             console.log(e);
         }

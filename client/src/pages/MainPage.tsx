@@ -3,8 +3,8 @@ import { Container } from "react-bootstrap";
 import { IReviewsResponse } from "../types/types";
 import ReviewsApi from "../api/ReviewsApi";
 import Slider from "../components/slider/Slider";
-import TagsCloud from "../components/tagsCloud/TagsCloud";
 import displayError from "../components/errorsHelpers/requestError";
+import Tags from "../components/tags/Tags";
 
 function MainPage() {
     const [bestReviews, setBestReviews] = useState<Array<IReviewsResponse>>([]);
@@ -21,23 +21,30 @@ function MainPage() {
                 const axiosLastReviews = await ReviewsApi.getLast();
                 setLastReviews(axiosLastReviews.data);
                 setIsLastLoading(false);
-            } catch(e) {
+            } catch (e) {
                 setIsBestLoading(false);
                 setIsLastLoading(false);
                 displayError(e as Error);
             }
-        })()
+        })();
     }, []);
-
 
     return (
         <Container className="py-3 content">
             <main>
                 <h2>Best reviews: </h2>
-                <Slider reviews={bestReviews} type={"best"} isLoading={isBestLoading} />
+                <Slider
+                    reviews={bestReviews}
+                    type={"best"}
+                    isLoading={isBestLoading}
+                />
                 <h2>Last reviews: </h2>
-                <Slider reviews={lastReviews} type={"last"} isLoading={isLastLoading} />
-                <TagsCloud />
+                <Slider
+                    reviews={lastReviews}
+                    type={"last"}
+                    isLoading={isLastLoading}
+                />
+                <Tags />
             </main>
         </Container>
     );

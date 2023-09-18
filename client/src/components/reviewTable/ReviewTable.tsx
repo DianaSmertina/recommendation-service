@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { IReviewsResponse } from "../../types/types";
 import { formatDate, getGroupById } from "../../utilities/utilities";
-import ToolBar from "./Toolbar.tsx/Toolbar";
+import ToolBar from "./toolbar/Toolbar";
 import { RootState } from "../../redux/store";
 
 interface IReviewTableProps {
