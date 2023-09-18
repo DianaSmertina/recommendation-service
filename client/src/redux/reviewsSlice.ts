@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IGroup, ITag } from "../types/types";
 
 type SliceState = {
-    groups: Array<{id: number, name: string}>;
-    tags: Array<{tag_id: number, tag: string}>
+    groups: Array<IGroup>;
+    tags: Array<ITag>
 };
 
 const initialState: SliceState = { groups: [], tags: [] };

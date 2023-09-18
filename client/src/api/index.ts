@@ -35,7 +35,7 @@ api.interceptors.response.use(
                 localStorage.setItem("userId", JSON.stringify(response.data.userData));
                 return api.request(originalRequest);
             } catch (e) {
-                console.log("Unauthorized");
+                console.log('Unauthorized');
             }
         }
         throw error;

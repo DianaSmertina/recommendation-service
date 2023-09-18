@@ -13,7 +13,7 @@ class ReviewController {
                 group,
                 userId,
                 tags,
-            } = await req.body;
+            } = req.body;
             const image = (await cloudinary.uploader.upload(req.file.path)).url;
             const newReview = await Review.create({
                 reviewName,
@@ -24,7 +24,6 @@ class ReviewController {
                 userId,
                 image,
             });
-            console.log(typeof tags);
             const tagsArray = tags.split(",");
             const allReviewTags = [];
             for (const tag of tagsArray) {
@@ -97,6 +96,17 @@ class ReviewController {
             const groups = await ReviewGroup.findAll();
             return res.status(200).json(groups);
         } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async getByTag(req, res) {
+        try {
+            const { tagId } = req.body;
+            const reviews = await Review.findAll({
+                include: [{ model: Tag, through: 'reviewtag', where: {id: tagId} }],
+            })
+        } catch(e) {
             console.log(e);
         }
     }

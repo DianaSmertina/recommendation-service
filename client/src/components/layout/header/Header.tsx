@@ -1,6 +1,6 @@
 import { Row, Navbar, Container, Nav, Button, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
@@ -9,12 +9,14 @@ import { RootState } from "../../../redux/store";
 function Header() {
     const dispatch = useDispatch();
     const currentUserId = useSelector((state: RootState) => state.user.id);
+    const navigate = useNavigate();
 
     const logOut = async () => {
         await UserApi.logout();
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         dispatch(setUser({ id: null, email: null, isAdmin: null }));
+        navigate("/");
     };
 
     return (

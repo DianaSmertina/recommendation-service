@@ -49,5 +49,11 @@ export interface ITag {
 
 export interface ITagForCloud {
     value: string;
-    count: number;
+    count: string;
+    id: number;
+}
+
+export interface IGroup {
+    id: number;
+    name: string; 
 }

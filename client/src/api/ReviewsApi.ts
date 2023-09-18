@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IReviewsResponse, ITag, ITagForCloud } from "../types/types";
+import { IGroup, IReviewsResponse, ITag, ITagForCloud } from "../types/types";
 import api from ".";
 
 class ReviewsApi {
@@ -28,7 +28,7 @@ class ReviewsApi {
     }
 
     static async getGroups(): Promise<
-        AxiosResponse<Array<{ id: number; name: string }>>
+        AxiosResponse<Array<IGroup>>
     > {
         return api.get("review/groups");
     }

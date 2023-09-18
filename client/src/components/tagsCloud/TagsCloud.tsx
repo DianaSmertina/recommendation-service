@@ -13,13 +13,17 @@ function TagsCloud() {
             setTags(response.data);
         })();
     }, []);
-    
+
     return (
-        <TagCloud
-            minSize={12}
-            maxSize={35}
-            tags={tags}
-        />
+        <div className="white-background d-flex justify-content-center">
+            <TagCloud
+                minSize={12}
+                maxSize={35}
+                tags={tags}
+                className="simple-cloud"
+                onClick={(tag: ITagForCloud) => console.log(tag)}
+            />
+        </div>
     );
 }
 

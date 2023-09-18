@@ -29,7 +29,7 @@ const Review = sequelize.define("review", {
 });
 
 const Tag = sequelize.define("tag", {
-    tag_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     tag: {type: DataTypes.STRING, unique: true, allowNull: false},
 },
 { timestamps: false })

@@ -1,77 +1,68 @@
 import { Spinner, Table } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { IReviewsResponse } from "../../types/types";
-import ReviewsApi from "../../api/ReviewsApi";
-import { formatDate } from "../../utilities/utilities";
+import { formatDate, getGroupById } from "../../utilities/utilities";
 import ToolBar from "./Toolbar.tsx/Toolbar";
 import { RootState } from "../../redux/store";
 
-function ReviewTable() {
-    const { userId } = useParams();
-    const [userReviews, setUserReviews] = useState<Array<IReviewsResponse>>([]);
+interface IReviewTableProps {
+    userReviews: Array<IReviewsResponse>;
+    isLoading: boolean;
+}
+
+function ReviewTable({userReviews, isLoading}: IReviewTableProps) {
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
 
-    useEffect(() => {
-        (async function getUserReviews() {
-            const axiosReviews = await ReviewsApi.getAllByUserId(
-                Number(userId)
-            );
-            setUserReviews(axiosReviews.data);
-        })();
-    }, [userId]);
-
     return (
         <>
-            <ToolBar />
-            {userReviews.length === 0 ? (
+            {isLoading ? (
                 <Spinner />
-            ) : (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th>Name</th>
-                            <th>Product</th>
-                            <th className="d-none d-sm-block">Group</th>
-                            <th>?/10</th>
-                            <th className="d-none d-sm-block">
-                                Date of writing
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {userReviews.map((el) => (
-                            <tr key={el.id}>
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                                <td>{el.reviewName}</td>
-                                <td>{el.productName}</td>
-                                <td className="d-none d-sm-block">
-                                    {
-                                        reviewGroups.find(
-                                            (group) => group.id === +el.group
-                                        )?.name
-                                    }
-                                </td>
-                                <td>{el.authorsAssessment}</td>
-                                <td className="d-none d-sm-block">
-                                    {
-                                        formatDate(el.createdAt, "ru-Ru").split(
-                                            ","
-                                        )[0]
-                                    }
-                                </td>
+            ) : userReviews.length > 0 ? (
+                <>
+                    <ToolBar />
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Name</th>
+                                <th>Product</th>
+                                <th className="d-none d-sm-block">Group</th>
+                                <th>?/10</th>
+                                <th className="d-none d-sm-block">
+                                    Date of writing
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {userReviews.map((el) => (
+                                <tr key={el.id}>
+                                    <td>
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td>{el.reviewName}</td>
+                                    <td>{el.productName}</td>
+                                    <td className="d-none d-sm-block">
+                                        {getGroupById(reviewGroups, +el.group)}
+                                    </td>
+                                    <td>{el.authorsAssessment}</td>
+                                    <td className="d-none d-sm-block">
+                                        {
+                                            formatDate(
+                                                el.createdAt,
+                                                "ru-Ru"
+                                            ).split(",")[0]
+                                        }
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </>
+            ) : (
+                <div>You don't write any reviews yet</div>
             )}
         </>
     );

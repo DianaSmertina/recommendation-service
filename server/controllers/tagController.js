@@ -16,6 +16,7 @@ class TagController {
             const tagsWithCount = await Tag.findAll({
                 attributes: [
                     "tag",
+                    "id",
                     [
                         Sequelize.fn("COUNT", Sequelize.col("reviews.id")),
                         "count",
@@ -29,11 +30,12 @@ class TagController {
                         through: { attributes: [] },
                     },
                 ],
-                group: ["tag.tag_id"]
+                group: ["tag.id"]
             });
             const formattedTags = tagsWithCount.map((tag) => ({
                 value: tag.tag,
                 count: tag.get("count"),
+                id: tag.id,
             }));
             return res.status(200).json(formattedTags);
         } catch (e) {

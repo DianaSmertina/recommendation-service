@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
         if (!token) {
             return res.status(401).json({ message: "User unauthorized" });
         }
-        const userData = tokenService.validateAccessToken(token);
+        const userData = tokenService.checkAccessToken(token);
         req.user = userData;
         next();
     } catch (e) {

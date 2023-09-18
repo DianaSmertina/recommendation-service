@@ -1,6 +1,6 @@
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 import MDEditor from "@uiw/react-md-editor";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -15,9 +15,11 @@ import { IReviewsRequest, ITag } from "../../types/types";
 import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
 
-import styles from "./newReview.module.scss";
+interface INewReview {
+    setNewReview: Dispatch<SetStateAction<boolean>>
+}
 
-function NewReview() {
+function NewReview({setNewReview}: INewReview) {
     const { register, formState, handleSubmit, reset } = useForm<IReviewsRequest>({
         mode: "onSubmit",
     });
@@ -57,6 +59,7 @@ function NewReview() {
                 dataForQuery.append(el[0], el[1]);
             });
             await ReviewsApi.createReview(dataForQuery);
+            setNewReview((prev) => !prev);
             setSelectedTags([]);
             reset();
             setReviewText("");
@@ -79,7 +82,7 @@ function NewReview() {
             {userId == Number(useParams().userId) && (
                 <Form
                     onSubmit={handleSubmit(onSubmit)}
-                    className={`p-3 ${styles.form}`}
+                    className="p-3 white-background"
                 >
                     <Form.Group onFocus={handleFocus} className="mb-2">
                         <Form.Label>What would you like to review?</Form.Label>

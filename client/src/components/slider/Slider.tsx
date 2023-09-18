@@ -1,17 +1,17 @@
 import { Spinner, Image, Container } from "react-bootstrap";
+import { useRef } from "react";
 
 import { IReviewsResponse } from "../../types/types";
-import ReviewCard from "../reviewCard/ReviewCard";
 
 import styles from "./slider.module.scss";
-import { useRef } from "react";
 
 interface ISliderProps {
     reviews: Array<IReviewsResponse>;
-    type: string;
+    type: string; //delete if don't need when design
+    isLoading: boolean;
 }
 
-function Slider({ reviews, type }: ISliderProps) {
+function Slider({ reviews, isLoading }: ISliderProps) {
     const slider = useRef<HTMLDivElement>(null);
 
     const arrowClickHandler = (isLeft: boolean) => {
@@ -23,20 +23,28 @@ function Slider({ reviews, type }: ISliderProps) {
     };
 
     return (
-        <Container className="d-flex align-items-center justify-content-between p-0 position-relative">
+        <Container className="d-flex align-items-center justify-content-between p-0 position-relative mb-3">
             <Image
                 src="./arrow-left.png"
                 width={50}
                 height={50}
                 onClick={() => arrowClickHandler(false)}
+                className={styles.arrow}
             />
-            {reviews.length > 0 ? (
+            {!isLoading ? (
                 <div
                     className={`d-flex m-auto position-relative slider ${styles.slider}`}
                     ref={slider}
                 >
                     {reviews.map((el) => (
-                        <ReviewCard key={el.id} review={el} type={type} />
+                        <div className="me-3 mb-3" key={el.id}>
+                            <Image
+                                src={el.image || "../../../public/default.jpg"}
+                                width={80}
+                                height={80}
+                                roundedCircle
+                            />
+                        </div>
                     ))}
                 </div>
             ) : (
@@ -47,6 +55,7 @@ function Slider({ reviews, type }: ISliderProps) {
                 width={50}
                 height={50}
                 onClick={() => arrowClickHandler(true)}
+                className={styles.arrow}
             />
         </Container>
     );
