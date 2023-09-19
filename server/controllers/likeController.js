@@ -40,6 +40,18 @@ class LikeController {
             console.log(e);
         }
     }
+
+    async countUserLikes(req, res) {
+        try {
+            const {userId} = req.query;
+            const likes = await Like.count({
+                include: [{ model: Review, where: { userId } }],
+            })
+            return res.status(200).json(likes);
+        } catch(e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new LikeController();

@@ -1,8 +1,9 @@
 import { Image, Spinner, Col, Row, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { ToastContainer } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 import { useGetByIdQuery } from "../../redux/reviewsApi";
 import { RootState } from "../../redux/store";
@@ -11,56 +12,27 @@ import displayError from "../errorsHelpers/requestError";
 import LikeApi from "../../api/LikeApi";
 
 import styles from "./reviewInfo.module.scss";
+import Likes from "./likes/Likes";
 
-interface IReviewInfoProps {
-    reviewId: string | undefined;
-}
-
-function ReviewInfo({ reviewId }: IReviewInfoProps) {
-    const [isLike, setIsLike] = useState(false);
-    const [reviewLikesCount, setReviewLikesCount] = useState<number>();
+function ReviewInfo() {
+    const { reviewId } = useParams();
     const { data, isError, isFetching } = useGetByIdQuery(reviewId);
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
-    const userId = useSelector((state: RootState) => state.user.id);
 
     useEffect(() => {
         (async function () {
             try {
-                if (userId && reviewId) {
-                    const like = await LikeApi.checkLike(userId, reviewId);
-                    like.data ? setIsLike(true) : setIsLike(false);
-                }
-                if (reviewId) {
-                    const count = await LikeApi.getCountForReview(reviewId);
-                    setReviewLikesCount(count.data);
+                if (data) {
+                    const result = await LikeApi.getCountForUser(data.userId);
+                    console.log(result);
                 }
             } catch (e) {
                 displayError(e as Error);
             }
         })();
-    }, [userId, reviewId, setIsLike]);
-
-    const addLike = async () => {
-        try {
-            if (!isLike && userId && reviewId) {
-                await LikeApi.addLike({ userId, reviewId });
-                setIsLike(true);
-                setReviewLikesCount((prev) => {
-                    if (prev !== undefined) {
-                        return ++prev;
-                    } 
-                });
-            } else if (!userId) {
-                throw new Error("Sign in to like review");
-            } else if (isLike) {
-                throw new Error("You already liked this review");
-            }
-        } catch (e) {
-            displayError(e as Error);
-        }
-    };
+    }, [data]);
 
     return (
         <>
@@ -98,28 +70,7 @@ function ReviewInfo({ reviewId }: IReviewInfoProps) {
                                             height={50}
                                         />
                                     </Col>
-                                    <Col className="d-flex justify-content-center align-items-center">
-                                        <Image
-                                            src="../../../public/favorite.png"
-                                            width={50}
-                                            height={50}
-                                            className={`me-2 ${
-                                                isLike
-                                                    ? styles.active_image
-                                                    : styles.inactive_image
-                                            }`}
-                                            onClick={addLike}
-                                        />
-                                        <div
-                                            className={
-                                                isLike
-                                                    ? styles.active_text
-                                                    : styles.inactive_text
-                                            }
-                                        >
-                                            {reviewLikesCount}
-                                        </div>
-                                    </Col>
+                                    <Likes />
                                 </Row>
                             </Card>
                             <Card border="light" className="p-3">
