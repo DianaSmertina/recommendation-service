@@ -34,6 +34,10 @@ const Tag = sequelize.define("tag", {
 },
 { timestamps: false })
 
+const Like = sequelize.define("like", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+})
+
 User.hasOne(Token);
 Token.belongsTo(User);
 User.hasMany(Review);
@@ -42,5 +46,9 @@ ReviewGroup.hasMany(Review, { foreignKey: "group" });
 Review.belongsTo(ReviewGroup, { foreignKey: "group" });
 Review.belongsToMany(Tag, {through: "reviewtag"});
 Tag.belongsToMany(Review, {through: "reviewtag"});
+User.hasMany(Like);
+Like.belongsTo(User);
+Review.hasMany(Like);
+Like.belongsTo(Review);
 
-module.exports = { User, Token, Review, ReviewGroup, Tag };
+module.exports = { User, Token, Review, ReviewGroup, Tag, Like };

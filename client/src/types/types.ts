@@ -63,3 +63,9 @@ export interface IGroup {
     id: number;
     name: string; 
 }
+
+export interface ILike {
+    id: number;
+    userId: number;
+    reviewId: number;
+}
