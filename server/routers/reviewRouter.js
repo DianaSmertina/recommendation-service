@@ -13,5 +13,6 @@ router.get("/best", reviewController.getBest);
 router.get("/user/:id", authTokenMiddleware, reviewController.getAllByUserId);
 router.get("/groups", reviewController.getGroups);
 router.get("/tag/:tag", reviewController.getByTag);
+router.get("/:id", reviewController.getById);
 
 module.exports = router;

@@ -4,6 +4,7 @@ export interface IUser {
     isAdmin: boolean;
     name?: string;
     password?: string;
+    avatar?: string | null;
 }
 
 export interface ITokenResponse {
@@ -31,6 +32,11 @@ export interface IReviewsResponse {
     image: string | null;
 }
 
+export interface IReviewsResponseExtended extends IReviewsResponse {
+    tags: Array<ITag>;
+    user: IUser;
+}
+
 export interface IReviewsRequest {
     reviewName: string;
     productName: string;
@@ -43,7 +49,7 @@ export interface IReviewsRequest {
 }
 
 export interface ITag {
-    id_tag: number;
+    id: number;
     tag: string;
 }
 

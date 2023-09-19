@@ -12,6 +12,6 @@ export function formatDate(stringDate: string, region: string) {
     return date.toLocaleDateString(region, options);
 }
 
-export function getGroupById(groups: Array<IGroup>, id: number) {
-    return groups.find(group => group.id === id )?.name;
+export function getGroupById(groups: Array<IGroup>, id: string) {
+    return groups.find(group => group.id === Number(id) )?.name;
 }

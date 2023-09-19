@@ -1,4 +1,4 @@
-const { Review, ReviewGroup, Tag } = require("../models/models");
+const { Review, ReviewGroup, Tag, User } = require("../models/models");
 const cloudinary = require("cloudinary").v2;
 const reviewService = require("../services/reviewService");
 
@@ -30,7 +30,7 @@ class ReviewController {
                 let currentTag = await Tag.findOne({ where: { tag } });
                 if (!currentTag) {
                     currentTag = await Tag.create({ tag });
-                } 
+                }
                 allReviewTags.push(currentTag);
             }
             await newReview.addTags(allReviewTags);
@@ -55,7 +55,7 @@ class ReviewController {
         try {
             const reviews = await Review.findAll({
                 order: [["createdAt", "DESC"]],
-                include: [{ model: Tag, through: 'reviewtag' }],
+                include: [{ model: Tag, through: "reviewtag" }],
                 limit: 20,
             });
             return res.status(200).json(reviews);
@@ -67,7 +67,7 @@ class ReviewController {
     async getBest(req, res) {
         try {
             const reviews = await Review.findAll({
-                include: [{ model: Tag, through: 'reviewtag' }],
+                include: [{ model: Tag, through: "reviewtag" }],
                 order: [["authorsAssessment", "DESC"]],
                 limit: 20,
             });
@@ -80,9 +80,9 @@ class ReviewController {
     async getAllByUserId(req, res) {
         try {
             const userId = req.params.id;
-            const reviews = await Review.findAll({ 
+            const reviews = await Review.findAll({
                 where: { userId },
-                include: [{ model: Tag, through: 'reviewtag' }],
+                include: [{ model: Tag, through: "reviewtag" }],
             });
             return res.status(200).json(reviews);
         } catch (e) {
@@ -104,10 +104,31 @@ class ReviewController {
         try {
             const id = req.params.tag;
             const reviews = await Review.findAll({
-                include: [{ model: Tag, through: 'reviewtag', where: {id} }],
-            })
+                include: [{ model: Tag, through: "reviewtag", where: { id } }],
+            });
             return res.status(200).json(reviews);
-        } catch(e) {
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async getById(req, res) {
+        try {
+            const id = req.params.id;
+            const review = await Review.findOne({
+                where: { id },
+                include: [
+                    Tag,
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password"],
+                        },
+                    },
+                ],
+            });
+            return res.status(200).json(review);
+        } catch (e) {
             console.log(e);
         }
     }

@@ -27,7 +27,7 @@ function ReviewCard({ review }: ICardProps) {
                     className={styles.image}
                 />
                 <Card.Subtitle className="text-muted mt-2">
-                    {getGroupById(reviewGroups, +review.group)}
+                    {getGroupById(reviewGroups, review.group)}
                 </Card.Subtitle>
                 <Card.Subtitle className="my-1">{review.productName}</Card.Subtitle>
                 <ListGroup variant="flush">

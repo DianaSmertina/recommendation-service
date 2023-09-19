@@ -50,7 +50,7 @@ function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
                                     </td>
                                     <td>{el.productName}</td>
                                     <td className="d-none d-sm-block">
-                                        {getGroupById(reviewGroups, +el.group)}
+                                        {getGroupById(reviewGroups, el.group)}
                                     </td>
                                     <td>{el.authorsAssessment}</td>
                                     <td className="d-none d-sm-block">
