@@ -7,6 +7,7 @@ const loader = multer({ dest: path.join(__dirname, "tmp") });
 const authTokenMiddleware = require("../middleware/authTokenMiddleware");
 
 router.post("/new", loader.single("image"), reviewController.addNew);
+router.put("/update/:id", authTokenMiddleware, reviewController.updateById);
 router.get("/all", reviewController.getAll);
 router.get("/last", reviewController.getLast);
 router.get("/best", reviewController.getBest);

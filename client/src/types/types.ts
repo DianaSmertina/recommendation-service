@@ -48,6 +48,8 @@ export interface IReviewsRequest {
     tags: Array<string>;
 }
 
+export type IOptionalReviewsRequest = Partial<IReviewsRequest>;
+
 export interface ITag {
     id: number;
     tag: string;

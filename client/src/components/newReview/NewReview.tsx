@@ -16,7 +16,7 @@ import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
 
 interface INewReview {
-    setNewReview: Dispatch<SetStateAction<boolean>>
+    setNewReview: Dispatch<SetStateAction<boolean>>;
 }
 
 function NewReview({setNewReview}: INewReview) {

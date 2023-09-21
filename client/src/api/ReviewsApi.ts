@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IGroup, IReviewsResponse, ITag, ITagForCloud } from "../types/types";
+import { IGroup, IReviewsResponse, IOptionalReviewsRequest, ITag, ITagForCloud } from "../types/types";
 import api from ".";
 
 class ReviewsApi {
@@ -25,6 +25,10 @@ class ReviewsApi {
         data: FormData
     ): Promise<AxiosResponse<IReviewsResponse>> {
         return api.post("/review/new", data);
+    }
+
+    static async updateReview(data: IOptionalReviewsRequest, id: number): Promise<AxiosResponse<IReviewsResponse>> {
+        return api.put(`review/update/${id}`, data);
     }
 
     static async getGroups(): Promise<

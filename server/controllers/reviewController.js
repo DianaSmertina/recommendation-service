@@ -14,7 +14,8 @@ class ReviewController {
                 userId,
                 tags,
             } = req.body;
-            const imageUrl = (await cloudinary.uploader.upload(req.file.path)).url;
+            const imageUrl = (await cloudinary.uploader.upload(req.file.path))
+                .url;
             const secureImageUrl = imageUrl.replace("http://", "https://");
             const newReview = await Review.create({
                 reviewName,
@@ -129,6 +130,20 @@ class ReviewController {
                 ],
             });
             return res.status(200).json(review);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async updateById(req, res) {
+        try {
+            const id = req.params.reviewId;
+            const updateData = req.body;
+            const updatedReview = await Review.update(updateData, {
+                where: { id },
+                returning: true,
+            });
+            return res.status(200).json(updatedReview);
         } catch (e) {
             console.log(e);
         }

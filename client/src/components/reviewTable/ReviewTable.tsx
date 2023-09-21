@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,9 +14,14 @@ interface IReviewTableProps {
 }
 
 function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
+    const [selectedReview, setSelectedReview] = useState<number>();
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
+
+    const handleSelect = (id: number) => {
+        setSelectedReview(id);
+    };
 
     return (
         <>
@@ -23,7 +29,7 @@ function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
                 <Spinner />
             ) : userReviews.length > 0 ? (
                 <>
-                    <ToolBar />
+                    <ToolBar selectedReview={selectedReview}/>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -41,10 +47,20 @@ function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
                             {userReviews.map((el) => (
                                 <tr key={el.id}>
                                     <td>
-                                        <input type="checkbox" />
+                                        <input
+                                            type="radio"
+                                            id="radioButton"
+                                            name="radioButton"
+                                            value={el.id}
+                                            checked={el.id === selectedReview}
+                                            onChange={() => handleSelect(el.id)}
+                                        />
                                     </td>
                                     <td>
-                                        <Link to={`/review/${el.id}`} className="text-decoration-none">
+                                        <Link
+                                            to={`/review/${el.id}`}
+                                            className="text-decoration-none"
+                                        >
                                             {el.reviewName}
                                         </Link>
                                     </td>
