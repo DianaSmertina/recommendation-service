@@ -47,6 +47,14 @@ const Like = sequelize.define("like", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
+const Rating = sequelize.define("rating", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    rating: {
+        type: DataTypes.INTEGER,
+        validate: { min: 1, max: 5 },
+    },
+})
+
 User.hasOne(Token);
 Token.belongsTo(User);
 User.hasMany(Review);
@@ -59,5 +67,9 @@ User.hasMany(Like);
 Like.belongsTo(User);
 Review.hasMany(Like);
 Like.belongsTo(Review);
+User.hasMany(Rating);
+Rating.belongsTo(User);
+Review.hasMany(Rating);
+Rating.belongsTo(Review);
 
-module.exports = { User, Token, Review, ReviewGroup, Tag, Like };
+module.exports = { User, Token, Review, ReviewGroup, Tag, Like, Rating };

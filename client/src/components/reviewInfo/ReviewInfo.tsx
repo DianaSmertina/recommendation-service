@@ -13,6 +13,7 @@ import LikeApi from "../../api/LikeApi";
 import Likes from "./likes/Likes";
 
 import styles from "./reviewInfo.module.scss";
+import Rating from "./rating/Rating";
 
 function ReviewInfo() {
     const { reviewId } = useParams();
@@ -64,13 +65,7 @@ function ReviewInfo() {
                                     {getGroupById(reviewGroups, data.group)}
                                 </Card.Subtitle>
                                 <Row className="my-1">
-                                    <Col>
-                                        <Image
-                                            src="../../../public/rating.png"
-                                            width={50}
-                                            height={50}
-                                        />
-                                    </Col>
+                                    <Rating />
                                     <Likes />
                                 </Row>
                             </Card>

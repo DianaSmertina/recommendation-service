@@ -7,8 +7,6 @@ import { RootState } from "../../../redux/store";
 import LikeApi from "../../../api/LikeApi";
 import displayError from "../../errorsHelpers/requestError";
 
-import styles from "./likes.module.scss";
-
 function Likes() {
     const [isLike, setIsLike] = useState(false);
     const [reviewLikesCount, setReviewLikesCount] = useState<number>();
@@ -30,7 +28,7 @@ function Likes() {
                 displayError(e as Error);
             }
         })();
-    }, [userId, reviewId, setIsLike]);
+    }, [userId, reviewId]);
 
     const addLike = async () => {
         try {
@@ -59,11 +57,11 @@ function Likes() {
                 width={50}
                 height={50}
                 className={`me-2 ${
-                    isLike ? styles.active_image : styles.inactive_image
+                    isLike ? "active_image" : "inactive_image"
                 }`}
                 onClick={addLike}
             />
-            <div className={isLike ? styles.active_text : styles.inactive_text}>
+            <div className={isLike ? "active_text" : "inactive_text"}>
                 {reviewLikesCount}
             </div>
         </Col>

@@ -69,3 +69,10 @@ export interface ILike {
     userId: number;
     reviewId: number;
 }
+
+export interface IRating {
+    id: number;
+    rating: number;
+    userId: number;
+    reviewId: number;
+}
