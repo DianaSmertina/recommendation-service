@@ -1,7 +1,6 @@
 const { Review, ReviewGroup, Tag, User } = require("../models/models");
 const cloudinary = require("cloudinary").v2;
 const reviewService = require("../services/reviewService");
-const likeService = require("../services/likeService");
 
 class ReviewController {
     async addNew(req, res) {
@@ -15,7 +14,8 @@ class ReviewController {
                 userId,
                 tags,
             } = req.body;
-            const image = (await cloudinary.uploader.upload(req.file.path)).url;
+            const imageUrl = (await cloudinary.uploader.upload(req.file.path)).url;
+            const secureImageUrl = imageUrl.replace("http://", "https://");
             const newReview = await Review.create({
                 reviewName,
                 productName,
@@ -23,7 +23,7 @@ class ReviewController {
                 authorsAssessment,
                 group,
                 userId,
-                image,
+                image: secureImageUrl,
             });
             const tagsArray = tags.split(",");
             const allReviewTags = [];
