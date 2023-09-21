@@ -10,7 +10,7 @@ function Footer() {
                         className="d-flex text-decoration-none align-items-center text-white"
                     >
                         <Image
-                            src={"../../../../public/git-logo.png"}
+                            src={"./git-logo.png"}
                             alt="git logo"
                             width={35}
                             height={35}

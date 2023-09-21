@@ -53,7 +53,7 @@ function Likes() {
     return (
         <Col className="d-flex justify-content-center align-items-center">
             <Image
-                src="../../../../public/favorite.png"
+                src="./favorite.png"
                 width={50}
                 height={50}
                 className={`me-2 ${

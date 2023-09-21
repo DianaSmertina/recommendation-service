@@ -43,7 +43,7 @@ function Slider({ reviews, isLoading }: ISliderProps) {
                                 <Image
                                     src={
                                         el.image ||
-                                        "../../../public/default.jpg"
+                                        "./default.jpg"
                                     }
                                     width={80}
                                     height={80}

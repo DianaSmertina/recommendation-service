@@ -92,7 +92,7 @@ function Rating() {
             {ratingClasses.map((el, i) => (
                 <Image
                     key={i}
-                    src="../../../../public/star.png"
+                    src="./star.png"
                     width={25}
                     height={25}
                     className={`me-2 ${el}`}

@@ -47,7 +47,7 @@ function ReviewInfo() {
                         <Col xs={4} md={3}>
                             <Image
                                 src={
-                                    data.image || "../../../public/default.png"
+                                    data.image || "./default.png"
                                 }
                                 className={styles.image}
                             />
@@ -74,7 +74,7 @@ function ReviewInfo() {
                                     <Image
                                         src={
                                             data.user.avatar ||
-                                            "../../../public/default.jpg"
+                                            "./default.jpg"
                                         }
                                         width={40}
                                         height={40}
@@ -85,7 +85,7 @@ function ReviewInfo() {
                                         {data.user.name}
                                         <div className="d-flex align-items-center justify-content-center">
                                             <Image
-                                                src="../../../public/favorite.png"
+                                                src="./favorite.png"
                                                 width={10}
                                                 height={10}
                                                 className="me-1"

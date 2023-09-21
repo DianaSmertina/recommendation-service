@@ -23,7 +23,7 @@ function ReviewCard({ review }: ICardProps) {
                 <Card.Title className={styles.title}>{review.reviewName}</Card.Title>
                 <Card.Img
                     variant="top"
-                    src={review.image || "../../../public/default.jpg"}
+                    src={review.image || "./default.jpg"}
                     className={styles.image}
                 />
                 <Card.Subtitle className="text-muted mt-2">

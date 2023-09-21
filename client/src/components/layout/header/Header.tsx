@@ -30,7 +30,7 @@ function Header() {
                                 className="text-decoration-none link-dark"
                             >
                                 <img
-                                    src="../../../public/logo.png"
+                                    src="./logo.png"
                                     alt="review logo"
                                 />
                             </NavLink>
@@ -40,7 +40,7 @@ function Header() {
                                 <>
                                     <NavLink to={`/user/${currentUserId}`}>
                                         <Image
-                                            src="../../../public/default.jpg"
+                                            src="./default.jpg"
                                             width={40}
                                             height={40}
                                             roundedCircle
