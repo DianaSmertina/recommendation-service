@@ -1,6 +1,7 @@
 const { Review, ReviewGroup, Tag, User } = require("../models/models");
 const cloudinary = require("cloudinary").v2;
 const reviewService = require("../services/reviewService");
+const likeService = require("../services/likeService");
 
 class ReviewController {
     async addNew(req, res) {

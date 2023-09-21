@@ -1,6 +1,6 @@
 import { Image, Spinner, Col, Row, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
@@ -10,13 +10,14 @@ import { RootState } from "../../redux/store";
 import { getGroupById } from "../../utilities/utilities";
 import displayError from "../errorsHelpers/requestError";
 import LikeApi from "../../api/LikeApi";
+import Likes from "./likes/Likes";
 
 import styles from "./reviewInfo.module.scss";
-import Likes from "./likes/Likes";
 
 function ReviewInfo() {
     const { reviewId } = useParams();
     const { data, isError, isFetching } = useGetByIdQuery(reviewId);
+    const [userLikeCount, setUserLikeCount] = useState<number>();
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
@@ -26,7 +27,7 @@ function ReviewInfo() {
             try {
                 if (data) {
                     const result = await LikeApi.getCountForUser(data.userId);
-                    console.log(result);
+                    setUserLikeCount(result.data);
                 }
             } catch (e) {
                 displayError(e as Error);
@@ -87,6 +88,15 @@ function ReviewInfo() {
                                     />
                                     <Card.Subtitle>
                                         {data.user.name}
+                                        <div className="d-flex align-items-center justify-content-center">
+                                            <Image
+                                                src="../../../public/favorite.png"
+                                                width={10}
+                                                height={10}
+                                                className="me-1"
+                                            />
+                                            {userLikeCount}
+                                        </div>
                                     </Card.Subtitle>
                                 </div>
                                 <Card.Subtitle className="my-2">
