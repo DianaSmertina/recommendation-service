@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Button, Stack, Modal } from "react-bootstrap";
+import EditModal from "../editModal/EditModal";
 
 interface IToolBar {
     selectedReview: number | undefined;
 }
 
-function ToolBar({selectedReview}: IToolBar) {
+function ToolBar({ selectedReview }: IToolBar) {
     const [showEditModal, setShowEditModal] = useState(false);
 
-    const handleOpenModal = () => {
+    const handleEdit = async () => {
         if (selectedReview) {
             setShowEditModal(true);
         }
@@ -18,16 +19,13 @@ function ToolBar({selectedReview}: IToolBar) {
         setShowEditModal(false);
     };
 
+
     return (
         <Stack direction="horizontal" gap={1} className="mb-2">
             <Modal show={showEditModal} onHide={handleCloseEditModal}>
-                {selectedReview}
+                <EditModal selectedReview={selectedReview} />
             </Modal>
-            <Button
-                className="btn btn-primary"
-                size="sm"
-                onClick={handleOpenModal}
-            >
+            <Button className="btn btn-primary" size="sm" onClick={handleEdit}>
                 Edit
             </Button>
             <Button className="btn btn-primary btn-picture unblock" size="sm">

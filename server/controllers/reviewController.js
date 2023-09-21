@@ -137,7 +137,7 @@ class ReviewController {
 
     async updateById(req, res) {
         try {
-            const id = req.params.reviewId;
+            const id = req.params.id;
             const updateData = req.body;
             const updatedReview = await Review.update(updateData, {
                 where: { id },

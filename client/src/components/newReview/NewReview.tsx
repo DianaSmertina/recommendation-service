@@ -99,7 +99,7 @@ function NewReview({setNewReview}: INewReview) {
                             <Row className="mb-2">
                                 <Col xs={8}>
                                     <Form.Group>
-                                        <Form.Label>Title</Form.Label>
+                                        <Form.Label>Review title</Form.Label>
                                         <Form.Control
                                             {...register("reviewName", {
                                                 required: true,

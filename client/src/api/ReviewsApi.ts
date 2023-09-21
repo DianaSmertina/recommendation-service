@@ -28,13 +28,13 @@ class ReviewsApi {
     }
 
     static async updateReview(data: IOptionalReviewsRequest, id: number): Promise<AxiosResponse<IReviewsResponse>> {
-        return api.put(`review/update/${id}`, data);
+        return api.put(`/review/update/${id}`, data);
     }
 
     static async getGroups(): Promise<
         AxiosResponse<Array<IGroup>>
     > {
-        return api.get("review/groups");
+        return api.get("/review/groups");
     }
 
     static async getTags(): Promise<
