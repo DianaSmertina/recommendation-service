@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import LikeApi from "../../../api/LikeApi";
 import displayError from "../../errorsHelpers/requestError";
+import likeImage from "../../../assets/favorite.png";
 
 function Likes() {
     const [isLike, setIsLike] = useState(false);
@@ -53,7 +54,7 @@ function Likes() {
     return (
         <Col className="d-flex justify-content-center align-items-center">
             <Image
-                src="./favorite.png"
+                src={likeImage}
                 width={50}
                 height={50}
                 className={`me-2 ${

@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { IReviewsResponse } from "../../types/types";
+import arrowLeft from "../../assets/arrow-left.png";
+import arrowRight from "../../assets/arrow-right.png";
+import defaultImage from "../../assets/default.jpg";
 
 import styles from "./slider.module.scss";
 
@@ -26,7 +29,7 @@ function Slider({ reviews, isLoading }: ISliderProps) {
     return (
         <Container className="d-flex align-items-center justify-content-between p-0 position-relative mb-3">
             <Image
-                src="./arrow-left.png"
+                src={arrowLeft}
                 width={50}
                 height={50}
                 onClick={() => arrowClickHandler(false)}
@@ -43,7 +46,7 @@ function Slider({ reviews, isLoading }: ISliderProps) {
                                 <Image
                                     src={
                                         el.image ||
-                                        "./default.jpg"
+                                        defaultImage
                                     }
                                     width={80}
                                     height={80}
@@ -58,7 +61,7 @@ function Slider({ reviews, isLoading }: ISliderProps) {
                 <Spinner />
             )}
             <Image
-                src="./arrow-right.png"
+                src={arrowRight}
                 width={50}
                 height={50}
                 onClick={() => arrowClickHandler(true)}

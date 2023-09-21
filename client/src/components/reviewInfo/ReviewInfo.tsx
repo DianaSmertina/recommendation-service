@@ -11,9 +11,11 @@ import { getGroupById } from "../../utilities/utilities";
 import displayError from "../errorsHelpers/requestError";
 import LikeApi from "../../api/LikeApi";
 import Likes from "./likes/Likes";
+import Rating from "./rating/Rating";
+import defaultImage from "../../assets/default.jpg";
+import likeImage from "../../assets/favorite.png";
 
 import styles from "./reviewInfo.module.scss";
-import Rating from "./rating/Rating";
 
 function ReviewInfo() {
     const { reviewId } = useParams();
@@ -47,7 +49,7 @@ function ReviewInfo() {
                         <Col xs={4} md={3}>
                             <Image
                                 src={
-                                    data.image || "./default.png"
+                                    data.image || defaultImage
                                 }
                                 className={styles.image}
                             />
@@ -74,7 +76,7 @@ function ReviewInfo() {
                                     <Image
                                         src={
                                             data.user.avatar ||
-                                            "./default.jpg"
+                                            defaultImage
                                         }
                                         width={40}
                                         height={40}
@@ -85,7 +87,7 @@ function ReviewInfo() {
                                         {data.user.name}
                                         <div className="d-flex align-items-center justify-content-center">
                                             <Image
-                                                src="./favorite.png"
+                                                src={likeImage}
                                                 width={10}
                                                 height={10}
                                                 className="me-1"

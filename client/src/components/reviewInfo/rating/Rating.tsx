@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import RatingApi from "../../../api/RatingApi";
 import displayError from "../../errorsHelpers/requestError";
+import starImage from "../../../assets/star.png";
 
 function Rating() {
     const { reviewId } = useParams();
@@ -92,7 +93,7 @@ function Rating() {
             {ratingClasses.map((el, i) => (
                 <Image
                     key={i}
-                    src="./star.png"
+                    src={starImage}
                     width={25}
                     height={25}
                     className={`me-2 ${el}`}

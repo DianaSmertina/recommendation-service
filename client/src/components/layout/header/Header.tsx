@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
 import { RootState } from "../../../redux/store";
+import logo from "../../../assets/logo.png";
+import defaultImage from "../../../assets/default.jpg";
 
 function Header() {
     const dispatch = useDispatch();
@@ -30,7 +32,7 @@ function Header() {
                                 className="text-decoration-none link-dark"
                             >
                                 <img
-                                    src="./logo.png"
+                                    src={logo}
                                     alt="review logo"
                                 />
                             </NavLink>
@@ -40,7 +42,7 @@ function Header() {
                                 <>
                                     <NavLink to={`/user/${currentUserId}`}>
                                         <Image
-                                            src="./default.jpg"
+                                            src={defaultImage}
                                             width={40}
                                             height={40}
                                             roundedCircle

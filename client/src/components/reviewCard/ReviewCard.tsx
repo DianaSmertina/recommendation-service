@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getGroupById } from "../../utilities/utilities";
 import { RootState } from "../../redux/store";
 import { IReviewsResponse } from "../../types/types";
+import defaultImage from "../../assets/default.jpg";
 
 import styles from "./reviewCard.module.scss";
 
@@ -23,7 +24,7 @@ function ReviewCard({ review }: ICardProps) {
                 <Card.Title className={styles.title}>{review.reviewName}</Card.Title>
                 <Card.Img
                     variant="top"
-                    src={review.image || "./default.jpg"}
+                    src={review.image || defaultImage}
                     className={styles.image}
                 />
                 <Card.Subtitle className="text-muted mt-2">

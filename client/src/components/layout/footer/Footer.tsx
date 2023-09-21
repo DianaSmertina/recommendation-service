@@ -1,5 +1,7 @@
 import { Container, Row, Image } from "react-bootstrap";
 
+import gitLogo from "../../../assets/git-logo.png";
+
 function Footer() {
     return (
         <Row className="w-100 p-0 m-0 bg-dark">
@@ -10,7 +12,7 @@ function Footer() {
                         className="d-flex text-decoration-none align-items-center text-white"
                     >
                         <Image
-                            src={"./git-logo.png"}
+                            src={gitLogo}
                             alt="git logo"
                             width={35}
                             height={35}
