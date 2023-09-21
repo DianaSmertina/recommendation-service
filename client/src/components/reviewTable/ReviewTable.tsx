@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,9 +11,10 @@ import { RootState } from "../../redux/store";
 interface IReviewTableProps {
     userReviews: Array<IReviewsResponse>;
     isLoading: boolean;
+    setUpdatesChecking: Dispatch<SetStateAction<boolean>>;
 }
 
-function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
+function ReviewTable({ userReviews, isLoading, setUpdatesChecking }: IReviewTableProps) {
     const [selectedReview, setSelectedReview] = useState<number>();
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
@@ -29,7 +30,7 @@ function ReviewTable({ userReviews, isLoading }: IReviewTableProps) {
                 <Spinner />
             ) : userReviews.length > 0 ? (
                 <>
-                    <ToolBar selectedReview={selectedReview}/>
+                    <ToolBar selectedReview={selectedReview} setUpdatesChecking={setUpdatesChecking}/>
                     <Table striped bordered hover>
                         <thead>
                             <tr>

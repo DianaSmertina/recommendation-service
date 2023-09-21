@@ -28,7 +28,11 @@ class ReviewsApi {
     }
 
     static async updateReview(data: IOptionalReviewsRequest, id: number): Promise<AxiosResponse<IReviewsResponse>> {
-        return api.put(`/review/update/${id}`, data);
+        return api.put(`/review/${id}`, data);
+    }
+
+    static async deleteReview(id: number): Promise<AxiosResponse<number>> {
+        return api.delete(`/review/${id}`);
     }
 
     static async getGroups(): Promise<

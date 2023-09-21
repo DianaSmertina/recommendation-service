@@ -16,10 +16,10 @@ import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
 
 interface INewReview {
-    setNewReview: Dispatch<SetStateAction<boolean>>;
+    setUpdatesChecking: Dispatch<SetStateAction<boolean>>;
 }
 
-function NewReview({setNewReview}: INewReview) {
+function NewReview({setUpdatesChecking}: INewReview) {
     const { register, formState, handleSubmit, reset } = useForm<IReviewsRequest>({
         mode: "onSubmit",
     });
@@ -59,7 +59,7 @@ function NewReview({setNewReview}: INewReview) {
                 dataForQuery.append(el[0], el[1]);
             });
             await ReviewsApi.createReview(dataForQuery);
-            setNewReview((prev) => !prev);
+            setUpdatesChecking((prev) => !prev);
             setSelectedTags([]);
             reset();
             setReviewText("");

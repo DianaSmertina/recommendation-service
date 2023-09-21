@@ -12,7 +12,7 @@ function UserPage() {
     const { userId } = useParams();
     const [userReviews, setUserReviews] = useState<Array<IReviewsResponse>>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [newReview, setNewReview] = useState(false);
+    const [updatesChecking, setUpdatesChecking] = useState(false);
 
     useEffect(() => {
         (async function getUserReviews() {
@@ -27,13 +27,13 @@ function UserPage() {
                 displayError(e as Error);
             }
         })();
-    }, [newReview, userId]);
+    }, [updatesChecking, userId]);
 
     return (
         <Container className="py-3 content">
-            <NewReview setNewReview={setNewReview} />
+            <NewReview setUpdatesChecking={setUpdatesChecking} />
             <h4 className="my-3">My Reviews</h4>
-            <ReviewTable userReviews={userReviews} isLoading={isLoading} />
+            <ReviewTable userReviews={userReviews} isLoading={isLoading} setUpdatesChecking={setUpdatesChecking} />
         </Container>
     )
 }

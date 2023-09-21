@@ -148,6 +148,18 @@ class ReviewController {
             console.log(e);
         }
     }
+
+    async deleteById(req, res) {
+        try {
+            const id = req.params.id;
+            const deletedReviewCount = await Review.destroy({
+                where: { id },
+            });
+            return res.status(200).json(deletedReviewCount);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new ReviewController();
