@@ -1,0 +1,17 @@
+.image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.text {
+    border: 1px rgb(97, 95, 95) solid;
+    background-color: rgb(246, 243, 243);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.tag {
+    border-radius: 5px;
+}
