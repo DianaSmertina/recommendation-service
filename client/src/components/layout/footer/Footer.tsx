@@ -1,6 +1,8 @@
 import { Container, Row, Image } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
+import gitLogo from "../../../assets/git-logo.png";
+
 function Footer() {
     const { t } = useTranslation();
 
@@ -13,7 +15,7 @@ function Footer() {
                         className="d-flex text-decoration-none align-items-center text-white"
                     >
                         <Image
-                            src={"../../../../public/git-logo.png"}
+                            src={gitLogo}
                             alt="git logo"
                             width={35}
                             height={35}

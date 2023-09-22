@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
 import { RootState } from "../../../redux/store";
+import logo from "../../../assets/logo.png";
+import defaultImage from "../../../assets/default.jpg";
 
 import styles from "./header.module.scss";
 
@@ -44,7 +46,7 @@ function Header() {
                                 className="text-decoration-none link-dark"
                             >
                                 <img
-                                    src="../../../public/logo.png"
+                                    src={logo}
                                     alt="review logo"
                                 />
                             </NavLink>
