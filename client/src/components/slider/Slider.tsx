@@ -11,7 +11,6 @@ import styles from "./slider.module.scss";
 
 interface ISliderProps {
     reviews: Array<IReviewsResponse>;
-    type: string; //delete if don't need when design
     isLoading: boolean;
 }
 

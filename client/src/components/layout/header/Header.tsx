@@ -8,7 +8,6 @@ import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
 import { RootState } from "../../../redux/store";
 import logo from "../../../assets/logo.png";
-import defaultImage from "../../../assets/default.jpg";
 
 import styles from "./header.module.scss";
 

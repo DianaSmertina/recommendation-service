@@ -38,13 +38,11 @@ function MainPage() {
                 <h4 className="mb-3">{t("best-reviews")}</h4>
                 <Slider
                     reviews={bestReviews}
-                    type={"best"}
                     isLoading={isBestLoading}
                 />
                 <h4 className="my-3">{t("last-reviews")}</h4>
                 <Slider
                     reviews={lastReviews}
-                    type={"last"}
                     isLoading={isLastLoading}
                 />
                 <Tags />
