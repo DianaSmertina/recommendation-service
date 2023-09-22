@@ -4,6 +4,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ReviewsApi from "../../../api/ReviewsApi";
 import { ITagForCloud } from "../../../types/types";
 
+import styles from "./tagsCloud.module.scss";
+
 interface ITagsCloudProps {
     setSelectedTag: Dispatch<SetStateAction<number | undefined>>;
 }
@@ -20,10 +22,10 @@ function TagsCloud({setSelectedTag}: ITagsCloudProps) {
 
     return (
         <TagCloud
-            minSize={12}
+            minSize={20}
             maxSize={35}
             tags={tags}
-            className="simple-cloud mb-2"
+            className={`${styles.simple_cloud} mb-2`}
             onClick={(tag: ITagForCloud) => setSelectedTag(tag.id)}
         />
     );
