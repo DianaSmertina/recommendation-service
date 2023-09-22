@@ -15,7 +15,7 @@ class ReviewController {
                 tags,
             } = req.body;
             let imgUrl = null;
-            if (req.file.path) {
+            if (req.file) {
                 const imageUrl = (await cloudinary.uploader.upload(req.file.path)).url;
                 const secureImageUrl = imageUrl.replace("http://", "https://");
                 imgUrl = secureImageUrl;
