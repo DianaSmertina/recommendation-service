@@ -38,6 +38,7 @@ export const resources = {
             "best-reviews": "Reviews with the highest assessment from the author",
             "last-reviews": "Last added reviews",
             "my-page": "My page",
+            "less-image": "Please choose image less then 5MB",
         },
     },
     RUS: {
@@ -79,6 +80,7 @@ export const resources = {
             "best-reviews": "Обзоры с наивысшей оценкой от автора",
             "last-reviews": "Последние добавленные обзоры",
             "my-page": "Моя страница",
+            "less-image": "Пожалуйста, загрузите картинку меньше 5MB",
         },
     },
 };

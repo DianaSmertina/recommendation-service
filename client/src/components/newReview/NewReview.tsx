@@ -51,8 +51,8 @@ function NewReview({ setUpdatesChecking }: INewReview) {
             formData.tags = (selectedTags as Array<ITag>).map((el) => el.tag);
             if (formData.image instanceof FileList) {
                 formData.image = formData.image[0];
-                if (formData.image.size > 500000) {
-                    throw new Error("Please choose image less then 5MB");
+                if (formData.image && formData.image.size > 500000) {
+                    throw new Error(t("less-image"));
                 }
             }
             const dataForQuery = new FormData();
