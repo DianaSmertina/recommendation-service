@@ -2,6 +2,7 @@ import { Col, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { RootState } from "../../../redux/store";
 import LikeApi from "../../../api/LikeApi";
@@ -13,6 +14,7 @@ function Likes() {
     const [reviewLikesCount, setReviewLikesCount] = useState<number>();
     const { reviewId } = useParams();
     const userId = useSelector((state: RootState) => state.user.id);
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async function () {
@@ -42,9 +44,9 @@ function Likes() {
                     } 
                 });
             } else if (!userId) {
-                throw new Error("Sign in to like review");
+                throw new Error(t("sign-in-like"));
             } else if (isLike) {
-                throw new Error("You already liked this review");
+                throw new Error(t("already-liked"));
             }
         } catch (e) {
             displayError(e as Error);

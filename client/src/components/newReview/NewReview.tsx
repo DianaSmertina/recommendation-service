@@ -7,22 +7,24 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { Option } from "react-bootstrap-typeahead/types/types";
+import { useTranslation } from "react-i18next";
 
 import { RootState } from "../../redux/store";
 import { setTags } from "../../redux/reviewsSlice";
 import ReviewsApi from "../../api/ReviewsApi";
-import { IReviewsRequest, ITag } from "../../types/types";
+import { IGroup, IReviewsRequest, ITag } from "../../types/types";
 import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
 
 interface INewReview {
-    setNewReview: Dispatch<SetStateAction<boolean>>
+    setUpdatesChecking: Dispatch<SetStateAction<boolean>>;
 }
 
-function NewReview({setNewReview}: INewReview) {
-    const { register, formState, handleSubmit, reset } = useForm<IReviewsRequest>({
-        mode: "onSubmit",
-    });
+function NewReview({ setUpdatesChecking }: INewReview) {
+    const { register, formState, handleSubmit, reset } =
+        useForm<IReviewsRequest>({
+            mode: "onSubmit",
+        });
     const { isSubmitting, errors } = formState;
     const [reviewText, setReviewText] = useState("");
     const [inFocus, setInFocus] = useState(false);
@@ -30,11 +32,10 @@ function NewReview({setNewReview}: INewReview) {
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
-    const reviewTags = useSelector(
-        (state: RootState) => state.reviews.tags
-    );
+    const reviewTags = useSelector((state: RootState) => state.reviews.tags);
     const dispatch = useDispatch();
     const userId = useSelector((state: RootState) => state.user.id);
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async function () {
@@ -59,7 +60,7 @@ function NewReview({setNewReview}: INewReview) {
                 dataForQuery.append(el[0], el[1]);
             });
             await ReviewsApi.createReview(dataForQuery);
-            setNewReview((prev) => !prev);
+            setUpdatesChecking((prev) => !prev);
             setSelectedTags([]);
             reset();
             setReviewText("");
@@ -76,6 +77,14 @@ function NewReview({setNewReview}: INewReview) {
         setInFocus(false);
     };
 
+    const getGroupName = (el: IGroup) => {
+        const lang = localStorage.getItem("lang");
+        if (lang === "RUS") {
+            return el.nameRus;
+        }
+        return el.name;
+    };
+
     return (
         <>
             <ToastContainer />
@@ -85,9 +94,9 @@ function NewReview({setNewReview}: INewReview) {
                     className="p-3 white-background"
                 >
                     <Form.Group onFocus={handleFocus} className="mb-2">
-                        <Form.Label>What would you like to review?</Form.Label>
+                        <Form.Label>{t("review-question")}</Form.Label>
                         <Form.Control
-                            placeholder="Harry Potter"
+                            placeholder={t("harry-potter")}
                             {...register("productName", {
                                 required: true,
                             })}
@@ -99,7 +108,9 @@ function NewReview({setNewReview}: INewReview) {
                             <Row className="mb-2">
                                 <Col xs={8}>
                                     <Form.Group>
-                                        <Form.Label>Title</Form.Label>
+                                        <Form.Label>
+                                            {t("review-title")}
+                                        </Form.Label>
                                         <Form.Control
                                             {...register("reviewName", {
                                                 required: true,
@@ -110,7 +121,7 @@ function NewReview({setNewReview}: INewReview) {
                                 </Col>
                                 <Col xs={4}>
                                     <FormGroup>
-                                        <Form.Label>Group</Form.Label>
+                                        <Form.Label>{t("group")}</Form.Label>
                                         <Form.Select
                                             {...register("group", {
                                                 required: true,
@@ -121,7 +132,7 @@ function NewReview({setNewReview}: INewReview) {
                                                     key={el.id}
                                                     value={el.id}
                                                 >
-                                                    {el.name}
+                                                    {getGroupName(el)}
                                                 </option>
                                             ))}
                                         </Form.Select>
@@ -131,7 +142,7 @@ function NewReview({setNewReview}: INewReview) {
                             <Row className="mb-2">
                                 <Col xs={8}>
                                     <Form.Group>
-                                        <Form.Label>Download cover</Form.Label>
+                                        <Form.Label>{t("cover")}</Form.Label>
                                         <Form.Control
                                             type="file"
                                             accept="image/*"
@@ -141,7 +152,7 @@ function NewReview({setNewReview}: INewReview) {
                                 </Col>
                                 <Col xs={4}>
                                     <Form.Group>
-                                        <Form.Label>Your assessment</Form.Label>
+                                        <Form.Label>{t("assessment")}</Form.Label>
                                         <Form.Select
                                             {...register("authorsAssessment", {
                                                 required: true,
@@ -169,7 +180,7 @@ function NewReview({setNewReview}: INewReview) {
                                         multiple
                                         onChange={setSelectedTags}
                                         options={reviewTags}
-                                        placeholder="Add tags"
+                                        placeholder={t("add-tags")}
                                         selected={selectedTags}
                                         dropup={true}
                                         allowNew={true}
@@ -191,14 +202,14 @@ function NewReview({setNewReview}: INewReview) {
                                 value="Submit"
                                 className="me-2"
                             >
-                                Submit
+                                {t("submit")}
                             </Button>
                             <Button
                                 variant="primary"
                                 value="Cancel"
                                 onClick={cancelReview}
                             >
-                                Cancel
+                                {t("cancel")}
                             </Button>
                         </>
                     )}

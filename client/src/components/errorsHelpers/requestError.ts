@@ -6,7 +6,7 @@ function displayError(error: Error) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
             const textError = axiosError.response.data as {message: string};
-            toast.error(`Error: ${textError.message}`);
+            toast.error(textError.message);
         } else {
             toast.error(`Network Error: ${error.message}`);
         }

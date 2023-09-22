@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+
 import { IReviewsResponse } from "../types/types";
 import ReviewsApi from "../api/ReviewsApi";
 import Slider from "../components/slider/Slider";
@@ -11,6 +13,7 @@ function MainPage() {
     const [lastReviews, setLastReviews] = useState<Array<IReviewsResponse>>([]);
     const [isBestLoading, setIsBestLoading] = useState(true);
     const [isLastLoading, setIsLastLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async function getAsyncData() {
@@ -32,13 +35,13 @@ function MainPage() {
     return (
         <Container className="py-3 content">
             <main>
-                <h2>Best reviews: </h2>
+                <h4 className="mb-3">{t("best-reviews")}</h4>
                 <Slider
                     reviews={bestReviews}
                     type={"best"}
                     isLoading={isBestLoading}
                 />
-                <h2>Last reviews: </h2>
+                <h4 className="my-3">{t("last-reviews")}</h4>
                 <Slider
                     reviews={lastReviews}
                     type={"last"}

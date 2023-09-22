@@ -6,11 +6,11 @@ class ReviewService {
             const groupsData = await ReviewGroup.findAll();
             if (groupsData.length === 0) {
                 await ReviewGroup.bulkCreate([
-                    { name: "Movie" },
-                    { name: "Game" },
-                    { name: "TV Show" },
-                    { name: "Series" },
-                    { name: "Book" },
+                    { name: "Movie", nameRus: "Фильм" },
+                    { name: "Game", nameRus: "Игра" },
+                    { name: "TV Show", nameRus: "Телевизионное шоу" },
+                    { name: "Series", nameRus: "Сериал" },
+                    { name: "Book", nameRus: "Книга" },
                 ]);
             }
         } catch (e) {

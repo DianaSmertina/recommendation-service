@@ -1,6 +1,8 @@
-import { Row, Navbar, Container, Nav, Button, Image } from "react-bootstrap";
+import { useState } from "react";
+import { Row, Navbar, Container, Nav, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
@@ -8,10 +10,15 @@ import { RootState } from "../../../redux/store";
 import logo from "../../../assets/logo.png";
 import defaultImage from "../../../assets/default.jpg";
 
+import styles from "./header.module.scss";
+
 function Header() {
     const dispatch = useDispatch();
     const currentUserId = useSelector((state: RootState) => state.user.id);
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
+    const currentLang = localStorage.getItem("lang");
+    const [language, setLanguage] = useState(currentLang || "ENG");
 
     const logOut = async () => {
         await UserApi.logout();
@@ -19,6 +26,13 @@ function Header() {
         localStorage.removeItem("user");
         dispatch(setUser({ id: null, email: null, isAdmin: null }));
         navigate("/");
+    };
+
+    const clickLangHandler = () => {
+        const toggledLanguage = language === "ENG" ? "RUS" : "ENG";
+        localStorage.setItem("lang", toggledLanguage);
+        setLanguage(toggledLanguage);
+        i18n.changeLanguage(toggledLanguage);
     };
 
     return (
@@ -38,26 +52,29 @@ function Header() {
                             </NavLink>
                         </Navbar.Brand>
                         <Nav>
+                            <Button
+                                variant="outline-primary"
+                                className="mx-2 me-1"
+                                onClick={clickLangHandler}
+                            >
+                                {language}
+                            </Button>
                             {currentUserId ? (
                                 <>
                                     <NavLink to={`/user/${currentUserId}`}>
-                                        <Image
-                                            src={defaultImage}
-                                            width={40}
-                                            height={40}
-                                            roundedCircle
-                                            className="me-2"
-                                        />
+                                        <Button className={styles.btn}>{t("my-page")}</Button>
                                     </NavLink>
-                                    <Button onClick={logOut}>Log out</Button>
+                                    <Button onClick={logOut} className={styles.btn}>
+                                        {t("log-out")}
+                                    </Button>
                                 </>
                             ) : (
                                 <>
-                                    <NavLink to="/sign-in" className="me-2">
-                                        <Button>Sign in</Button>
+                                    <NavLink to="/sign-in" >
+                                        <Button className={styles.btn}>{t("sign-in")}</Button>
                                     </NavLink>
                                     <NavLink to="/sign-up">
-                                        <Button>Sign up</Button>
+                                        <Button className={styles.btn}>{t("sign-up")}</Button>
                                     </NavLink>
                                 </>
                             )}

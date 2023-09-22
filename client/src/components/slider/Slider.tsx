@@ -21,8 +21,8 @@ function Slider({ reviews, isLoading }: ISliderProps) {
     const arrowClickHandler = (isLeft: boolean) => {
         if (slider.current) {
             isLeft
-                ? (slider.current.scrollLeft += 200)
-                : (slider.current.scrollLeft -= 200);
+                ? (slider.current.scrollLeft += 100)
+                : (slider.current.scrollLeft -= 100);
         }
     };
 

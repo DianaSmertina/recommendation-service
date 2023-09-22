@@ -1,7 +1,6 @@
 const { Review, ReviewGroup, Tag, User } = require("../models/models");
 const cloudinary = require("cloudinary").v2;
 const reviewService = require("../services/reviewService");
-const likeService = require("../services/likeService");
 
 class ReviewController {
     async addNew(req, res) {
@@ -15,7 +14,9 @@ class ReviewController {
                 userId,
                 tags,
             } = req.body;
-            const image = (await cloudinary.uploader.upload(req.file.path)).url;
+            const imageUrl = (await cloudinary.uploader.upload(req.file.path))
+                .url;
+            const secureImageUrl = imageUrl.replace("http://", "https://");
             const newReview = await Review.create({
                 reviewName,
                 productName,
@@ -23,7 +24,7 @@ class ReviewController {
                 authorsAssessment,
                 group,
                 userId,
-                image,
+                image: secureImageUrl,
             });
             const tagsArray = tags.split(",");
             const allReviewTags = [];
@@ -129,6 +130,32 @@ class ReviewController {
                 ],
             });
             return res.status(200).json(review);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async updateById(req, res) {
+        try {
+            const id = req.params.id;
+            const updateData = req.body;
+            const updatedReview = await Review.update(updateData, {
+                where: { id },
+                returning: true,
+            });
+            return res.status(200).json(updatedReview);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async deleteById(req, res) {
+        try {
+            const id = req.params.id;
+            const deletedReviewCount = await Review.destroy({
+                where: { id },
+            });
+            return res.status(200).json(deletedReviewCount);
         } catch (e) {
             console.log(e);
         }

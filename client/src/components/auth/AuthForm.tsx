@@ -2,16 +2,17 @@ import { Button, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 import { ITokenResponse, IUser } from "../../types/types";
 import UserApi from "../../api/UserApi";
-import { AxiosResponse } from "axios";
-
-import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
 import BlankField from "../errorsHelpers/BlankField";
 import displayError from "../errorsHelpers/requestError";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     const {
@@ -23,6 +24,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const onSubmit: SubmitHandler<IUser> = async (formData) => {
         let tokensData: AxiosResponse<ITokenResponse>;
@@ -65,9 +67,9 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
             <Form onSubmit={handleSubmit(onSubmit)}>
                 {formType === "signUp" && (
                     <Form.Group className="mb-3">
-                        <Form.Label>Your name:</Form.Label>
+                        <Form.Label>{t("your-name")}</Form.Label>
                         <Form.Control
-                            placeholder="Name"
+                            placeholder={t("name")}
                             type="name"
                             {...register("name", {
                                 required: true,
@@ -88,9 +90,9 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                     {errors.email && <BlankField />}
                 </Form.Group>
                 <Form.Group className="mb-4">
-                    <Form.Label>Password:</Form.Label>
+                    <Form.Label>{t("password")}</Form.Label>
                     <Form.Control
-                        placeholder="Enter password"
+                        placeholder={t("enter-password")}
                         type="password"
                         {...register("password", {
                             required: true,
@@ -104,7 +106,7 @@ function AuthForm({ formType }: { formType: "signIn" | "signUp" }) {
                     value="Submit"
                     className="mr-2"
                 >
-                    Submit
+                    {t("submit")}
                 </Button>
             </Form>
         </>

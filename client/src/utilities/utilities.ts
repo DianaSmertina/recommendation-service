@@ -13,5 +13,8 @@ export function formatDate(stringDate: string, region: string) {
 }
 
 export function getGroupById(groups: Array<IGroup>, id: string) {
-    return groups.find(group => group.id === Number(id) )?.name;
+    const lang = localStorage.getItem("lang");
+    const groupEl = groups.find(group => group.id === Number(id));
+    if (lang === "RUS") return groupEl?.nameRus
+    return groupEl?.name;
 }

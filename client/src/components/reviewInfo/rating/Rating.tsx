@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Col, Image } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { RootState } from "../../../redux/store";
 import RatingApi from "../../../api/RatingApi";
@@ -16,6 +17,7 @@ function Rating() {
     );
     const [isRating, setIsRating] = useState(false);
     const userId = useSelector((state: RootState) => state.user.id);
+    const { t } = useTranslation();
 
     useEffect(() => {
         (async function () {
@@ -79,9 +81,9 @@ function Rating() {
                 setIsRating(true);
                 await RatingApi.addRating({ userId, reviewId, rating: starNum + 1 });
             } else if (!userId) {
-                throw new Error("Sign in to rate review");
+                throw new Error(t("sign-in-rate"));
             } else if (isRating) {
-                throw new Error("You already rate this review");
+                throw new Error(t("already-rate"));
             }
         } catch(e) {
             displayError(e as Error);

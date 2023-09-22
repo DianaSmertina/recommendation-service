@@ -1,0 +1,16 @@
+@import "../../styles/constants";
+
+.cell {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+@media (max-width: $sm-width) {
+    .table {
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 12px;
+    }
+}
