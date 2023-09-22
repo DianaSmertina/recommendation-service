@@ -14,9 +14,12 @@ class ReviewController {
                 userId,
                 tags,
             } = req.body;
-            const imageUrl = (await cloudinary.uploader.upload(req.file.path))
-                .url;
-            const secureImageUrl = imageUrl.replace("http://", "https://");
+            let imgUrl = null;
+            if (req.file.path) {
+                const imageUrl = (await cloudinary.uploader.upload(req.file.path)).url;
+                const secureImageUrl = imageUrl.replace("http://", "https://");
+                imgUrl = secureImageUrl;
+            }
             const newReview = await Review.create({
                 reviewName,
                 productName,
@@ -24,7 +27,7 @@ class ReviewController {
                 authorsAssessment,
                 group,
                 userId,
-                image: secureImageUrl,
+                image: imgUrl,
             });
             const tagsArray = tags.split(",");
             const allReviewTags = [];
