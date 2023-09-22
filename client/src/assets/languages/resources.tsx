@@ -37,6 +37,7 @@ export const resources = {
             "updated": "Updated!",
             "best-reviews": "Reviews with the highest assessment from the author",
             "last-reviews": "Last added reviews",
+            "my-page": "My page",
         },
     },
     RUS: {
@@ -77,6 +78,7 @@ export const resources = {
             "updated": "Обновлено!",
             "best-reviews": "Обзоры с наивысшей оценкой от автора",
             "last-reviews": "Последние добавленные обзоры",
+            "my-page": "Моя страница",
         },
     },
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Navbar, Container, Nav, Button, Image } from "react-bootstrap";
+import { Row, Navbar, Container, Nav, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { setUser } from "../../../redux/userSlice";
 import UserApi from "../../../api/UserApi";
 import { RootState } from "../../../redux/store";
+
+import styles from "./header.module.scss";
 
 function Header() {
     const dispatch = useDispatch();
@@ -48,29 +50,29 @@ function Header() {
                             </NavLink>
                         </Navbar.Brand>
                         <Nav>
-                            <Button variant="outline-secondary" className="me-2" onClick={clickLangHandler}>
+                            <Button
+                                variant="outline-primary"
+                                className="mx-2 me-1"
+                                onClick={clickLangHandler}
+                            >
                                 {language}
                             </Button>
                             {currentUserId ? (
                                 <>
                                     <NavLink to={`/user/${currentUserId}`}>
-                                        <Image
-                                            src="../../../public/default.jpg"
-                                            width={40}
-                                            height={40}
-                                            roundedCircle
-                                            className="me-2"
-                                        />
+                                        <Button className={styles.btn}>{t("my-page")}</Button>
                                     </NavLink>
-                                    <Button onClick={logOut}>{t("log-out")}</Button>
+                                    <Button onClick={logOut} className={styles.btn}>
+                                        {t("log-out")}
+                                    </Button>
                                 </>
                             ) : (
                                 <>
-                                    <NavLink to="/sign-in" className="me-2">
-                                        <Button>{t("sign-in")}</Button>
+                                    <NavLink to="/sign-in" >
+                                        <Button className={styles.btn}>{t("sign-in")}</Button>
                                     </NavLink>
                                     <NavLink to="/sign-up">
-                                        <Button>{t("sign-up")}</Button>
+                                        <Button className={styles.btn}>{t("sign-up")}</Button>
                                     </NavLink>
                                 </>
                             )}
