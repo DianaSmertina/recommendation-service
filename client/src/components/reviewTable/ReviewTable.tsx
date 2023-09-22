@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { IReviewsResponse } from "../../types/types";
 import { formatDate, getGroupById } from "../../utilities/utilities";
@@ -14,11 +14,17 @@ interface IReviewTableProps {
     setUpdatesChecking: Dispatch<SetStateAction<boolean>>;
 }
 
-function ReviewTable({ userReviews, isLoading, setUpdatesChecking }: IReviewTableProps) {
+function ReviewTable({
+    userReviews,
+    isLoading,
+    setUpdatesChecking,
+}: IReviewTableProps) {
     const [selectedReview, setSelectedReview] = useState<number>();
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
+    const currentUserId = useSelector((state: RootState) => state.user.id);
+    const { userId } = useParams();
 
     const handleSelect = (id: number) => {
         setSelectedReview(id);
@@ -30,7 +36,18 @@ function ReviewTable({ userReviews, isLoading, setUpdatesChecking }: IReviewTabl
                 <Spinner />
             ) : userReviews.length > 0 ? (
                 <>
-                    <ToolBar selectedReview={selectedReview} setUpdatesChecking={setUpdatesChecking}/>
+                    {String(currentUserId) == userId ? (
+                        <>
+                            <h4 className="my-4">My reviews</h4>
+                            <ToolBar
+                                selectedReview={selectedReview}
+                                setUpdatesChecking={setUpdatesChecking}
+                            />
+                        </>
+                    ) : (
+                        <h4 className="my-4">User reviews</h4>
+                    )}
+
                     <Table striped bordered hover>
                         <thead>
                             <tr>

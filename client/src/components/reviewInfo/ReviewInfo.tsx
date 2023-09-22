@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { ToastContainer } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { useGetByIdQuery } from "../../redux/reviewsApi";
 import { RootState } from "../../redux/store";
@@ -70,7 +70,7 @@ function ReviewInfo() {
                                 </Row>
                             </Card>
                             <Card border="light" className="p-3">
-                                <div className="d-flex align-items-center mb-2">
+                                <Link to={`/user/${data.user.id}`} className={`d-flex align-items-center mb-2 text-decoration-none ${styles.link}`}>
                                     <Image
                                         src={
                                             data.user.avatar ||
@@ -93,7 +93,7 @@ function ReviewInfo() {
                                             {userLikeCount}
                                         </div>
                                     </Card.Subtitle>
-                                </div>
+                                </Link>
                                 <Card.Subtitle className="my-2">
                                     {data.user.name}'s assessment:{" "}
                                     {data.authorsAssessment}

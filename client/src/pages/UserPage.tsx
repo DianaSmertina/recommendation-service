@@ -32,7 +32,6 @@ function UserPage() {
     return (
         <Container className="py-3 content">
             <NewReview setUpdatesChecking={setUpdatesChecking} />
-            <h4 className="my-3">My Reviews</h4>
             <ReviewTable userReviews={userReviews} isLoading={isLoading} setUpdatesChecking={setUpdatesChecking} />
         </Container>
     )
