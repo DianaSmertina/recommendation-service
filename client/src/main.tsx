@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import App from "./App.tsx";
 import { setupStore } from "./redux/store.ts";
+import "./i18n.ts";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";

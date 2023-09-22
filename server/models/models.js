@@ -20,6 +20,7 @@ const Token = sequelize.define("token", {
 const ReviewGroup = sequelize.define("reviewgroup", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
+    nameRus: { type: DataTypes.STRING, allowNull: false },
 });
 
 const Review = sequelize.define("review", {

@@ -63,7 +63,8 @@ export interface ITagForCloud {
 
 export interface IGroup {
     id: number;
-    name: string; 
+    name: string;
+    nameRus: string; 
 }
 
 export interface ILike {

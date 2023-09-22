@@ -1,6 +1,7 @@
 import { Button, Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { useTranslation } from "react-i18next";
 
 import { useGetByIdQuery } from "../../../redux/reviewsApi";
 import ReviewsApi from "../../../api/ReviewsApi";
@@ -16,6 +17,7 @@ function EditModal({ selectedReview }: IEditModal) {
     const [reviewText, setReviewText] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
     const [dataIsUpdated, setDataIsUpdated] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setReviewText(data?.text || "");
@@ -50,8 +52,8 @@ function EditModal({ selectedReview }: IEditModal) {
                 onClick={handleSubmit}
             >
                 {isUpdating && <Spinner />}
-                {dataIsUpdated && <p>Updated!</p>}
-                {!isUpdating && !dataIsUpdated && <p>Submit</p>}
+                {dataIsUpdated && <p>{t("updated")}</p>}
+                {!isUpdating && !dataIsUpdated && <p>{t("submit")}</p>}
             </Button>
         </div>
     );

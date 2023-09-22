@@ -2,11 +2,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Spinner, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { IReviewsResponse } from "../../types/types";
 import { formatDate, getGroupById } from "../../utilities/utilities";
 import ToolBar from "./toolbar/Toolbar";
 import { RootState } from "../../redux/store";
+
+import styles from "./reviewTable.module.scss";
 
 interface IReviewTableProps {
     userReviews: Array<IReviewsResponse>;
@@ -29,6 +32,7 @@ function ReviewTable({
     const handleSelect = (id: number) => {
         setSelectedReview(id);
     };
+    const { t } = useTranslation();
 
     return (
         <>
@@ -38,26 +42,25 @@ function ReviewTable({
                 <>
                     {String(currentUserId) == userId ? (
                         <>
-                            <h4 className="my-4">My reviews</h4>
+                            <h4 className="my-4">{t("my-reviews")}</h4>
                             <ToolBar
                                 selectedReview={selectedReview}
                                 setUpdatesChecking={setUpdatesChecking}
                             />
                         </>
                     ) : (
-                        <h4 className="my-4">User reviews</h4>
+                        <h4 className="my-4">{t("user-reviews")}</h4>
                     )}
-
-                    <Table striped bordered hover>
+                    <Table striped bordered hover className={styles.table}>
                         <thead>
                             <tr>
-                                <th>Select</th>
-                                <th>Name</th>
-                                <th>Product</th>
-                                <th className="d-none d-sm-block">Group</th>
+                                <th>🗸</th>
+                                <th className={styles.title}>{t("title")}</th>
+                                <th className={styles.title}>{t("product")}</th>
+                                <th className="d-none d-sm-block">{t("group")}</th>
                                 <th>?/10</th>
                                 <th className="d-none d-sm-block">
-                                    Date of writing
+                                    {t("date")}
                                 </th>
                             </tr>
                         </thead>
@@ -74,7 +77,7 @@ function ReviewTable({
                                             onChange={() => handleSelect(el.id)}
                                         />
                                     </td>
-                                    <td>
+                                    <td className={styles.cell}>
                                         <Link
                                             to={`/review/${el.id}`}
                                             className="text-decoration-none"
@@ -82,7 +85,7 @@ function ReviewTable({
                                             {el.reviewName}
                                         </Link>
                                     </td>
-                                    <td>{el.productName}</td>
+                                    <td className={styles.cell}>{el.productName}</td>
                                     <td className="d-none d-sm-block">
                                         {getGroupById(reviewGroups, el.group)}
                                     </td>
@@ -101,7 +104,7 @@ function ReviewTable({
                     </Table>
                 </>
             ) : (
-                <div>You don't write any reviews yet</div>
+                <div>{t("no-review")}</div>
             )}
         </>
     );

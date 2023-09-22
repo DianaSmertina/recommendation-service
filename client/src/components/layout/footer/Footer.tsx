@@ -1,6 +1,9 @@
 import { Container, Row, Image } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+    const { t } = useTranslation();
+
     return (
         <Row className="w-100 p-0 m-0 bg-dark">
             <footer className="p-0">
@@ -15,7 +18,7 @@ function Footer() {
                             width={35}
                             height={35}
                         />
-                        <p style={{ margin: "0 10px" }}>Diana Smertina</p>
+                        <p style={{ margin: "0 10px" }}>{t("developer")}</p>
                     </a>
                 </Container>
             </footer>

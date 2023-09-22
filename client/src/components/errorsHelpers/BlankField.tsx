@@ -1,7 +1,9 @@
 import { Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function BlankField() {
-    return <Form.Text>Field must be filled in</Form.Text>
+    const { t } = useTranslation();
+    return <Form.Text>{t("filled-error")}</Form.Text>
 }
 
 export default BlankField;

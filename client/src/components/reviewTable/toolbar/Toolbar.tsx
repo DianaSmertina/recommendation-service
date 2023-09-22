@@ -1,5 +1,7 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import { Button, Stack, Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+
 import EditModal from "../editModal/EditModal";
 import ReviewsApi from "../../../api/ReviewsApi";
 
@@ -10,6 +12,7 @@ interface IToolBar {
 
 function ToolBar({ selectedReview, setUpdatesChecking }: IToolBar) {
     const [showEditModal, setShowEditModal] = useState(false);
+    const { t } = useTranslation();
 
     const handleEdit = async () => {
         if (selectedReview) {
@@ -34,10 +37,10 @@ function ToolBar({ selectedReview, setUpdatesChecking }: IToolBar) {
                 <EditModal selectedReview={selectedReview} />
             </Modal>
             <Button className="btn btn-primary" size="sm" onClick={handleEdit}>
-                Edit
+                {t("edit")}
             </Button>
             <Button className="btn btn-primary btn-picture delete" size="sm" onClick={handleDelete}>
-                Delete
+                {t("delete")}
             </Button>
         </Stack>
     );
