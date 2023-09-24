@@ -79,3 +79,11 @@ export interface IRating {
     userId: number;
     reviewId: number;
 }
+
+export interface IComment {
+    id: number;
+    text: string;
+    user: IUser;
+    userId: number;
+    reviewId: number;
+}
