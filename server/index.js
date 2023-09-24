@@ -8,6 +8,7 @@ require("pg");
 const router = require("./routers/mainRouter");
 const cookieParser = require("cookie-parser");
 const cloudinary = require('cloudinary').v2;
+const { Server } = require('socket.io');
 
 var whitelistDomain = [
     "http://localhost:5173",
@@ -20,7 +21,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_PASSWORD,
 });
 
-class Server {
+class RecommendServer {
     app = express();
     async start() {
         try {
@@ -30,6 +31,7 @@ class Server {
                 console.log(`server start on port ${PORT}`);
             });
             this.addMiddleware();
+            this.createWS(currentServer);
         } catch (e) {
             console.log(e);
         }
@@ -49,6 +51,23 @@ class Server {
         this.app.use(cookieParser());
         this.app.use("/", router);
     }
+
+    createWS(server) {
+        const io = new Server(server, {
+            cors: {
+                origin: whitelistDomain,
+                methods: ["GET", "POST"],
+                credentials: true,
+            }});
+        io.on("connection", (socket) => {
+            socket.on("joinRoom", (room) => {
+                socket.join(room);
+            });
+            socket.on("message", (room, message) => {
+                io.to(room).emit("message", message);
+            });
+        });
+    }
 }
 
-new Server().start();
+new RecommendServer().start();

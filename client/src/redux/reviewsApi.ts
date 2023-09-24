@@ -3,7 +3,7 @@ import { IReviewsResponseExtended, IReviewsResponse } from "../types/types";
 
 export const reviewsApi = createApi({
     reducerPath: "reviewsApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://recommendation-service-server.onrender.com/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
     endpoints: (builder) => ({
         getByTag: builder.query<Array<IReviewsResponse>, number>({
             query: (params) => {

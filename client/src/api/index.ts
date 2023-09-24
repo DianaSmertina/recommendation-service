@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { ITokenResponse } from "../types/types";
 
-export const base = "https://recommendation-service-server.onrender.com";
+export const base = "http://localhost:5000";
 
 const api = axios.create({
     withCredentials: true,

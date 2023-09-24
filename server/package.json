@@ -21,7 +21,7 @@
     "pg-hstore": "^2.3.4",
     "pg-promise": "^11.5.3",
     "sequelize": "^6.32.1",
-    "ws": "^8.13.0"
+    "socket.io": "^4.7.2"
   },
   "author": "Diana Smertina",
   "license": "ISC"
