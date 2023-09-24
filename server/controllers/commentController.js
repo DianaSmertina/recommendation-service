@@ -8,8 +8,9 @@ class CommentController {
                 userId,
                 reviewId,
                 text
-            }, 
-            {
+            });
+            const commentData = await Comment.findOne({
+                where: {id: comment.id},
                 include: [
                     {
                         model: User,
@@ -18,9 +19,8 @@ class CommentController {
                         },
                     },
                 ],
-            }
-            );
-            return res.status(200).json(comment);
+            })
+            return res.status(200).json(commentData);
         } catch(e) {
             console.log(e);
         }
