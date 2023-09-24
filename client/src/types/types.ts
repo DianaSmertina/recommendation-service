@@ -86,4 +86,5 @@ export interface IComment {
     user: IUser;
     userId: number;
     reviewId: number;
+    createdAt: string;
 }

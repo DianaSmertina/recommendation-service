@@ -1,44 +1,27 @@
 import { Image, Spinner, Col, Row, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { ToastContainer } from "react-toastify";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { useGetByIdQuery } from "../../redux/reviewsApi";
 import { RootState } from "../../redux/store";
 import { getGroupById } from "../../utilities/utilities";
-import displayError from "../errorsHelpers/requestError";
-import LikeApi from "../../api/LikeApi";
 import Likes from "./likes/Likes";
 import Rating from "./rating/Rating";
 import defaultImage from "../../assets/default.jpg";
-import likeImage from "../../assets/favorite.png";
 
 import styles from "./reviewInfo.module.scss";
+import UserBriefInfo from "../userBriefInfo/UserBriefInfo";
 
 function ReviewInfo() {
     const { reviewId } = useParams();
     const { data, isError, isFetching } = useGetByIdQuery(reviewId);
-    const [userLikeCount, setUserLikeCount] = useState<number>();
     const reviewGroups = useSelector(
         (state: RootState) => state.reviews.groups
     );
     const { t } = useTranslation();
-
-    useEffect(() => {
-        (async function () {
-            try {
-                if (data) {
-                    const result = await LikeApi.getCountForUser(data.userId);
-                    setUserLikeCount(result.data);
-                }
-            } catch (e) {
-                displayError(e as Error);
-            }
-        })();
-    }, [data]);
 
     return (
         <>
@@ -74,30 +57,7 @@ function ReviewInfo() {
                                 </Row>
                             </Card>
                             <Card border="light" className="p-3">
-                                <Link to={`/user/${data.user.id}`} className={`d-flex align-items-center mb-2 text-decoration-none ${styles.link}`}>
-                                    <Image
-                                        src={
-                                            data.user.avatar ||
-                                            defaultImage
-                                        }
-                                        width={40}
-                                        height={40}
-                                        roundedCircle
-                                        className="me-2"
-                                    />
-                                    <Card.Subtitle>
-                                        {data.user.name}
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            <Image
-                                                src={likeImage}
-                                                width={10}
-                                                height={10}
-                                                className="me-1"
-                                            />
-                                            {userLikeCount}
-                                        </div>
-                                    </Card.Subtitle>
-                                </Link>
+                                <UserBriefInfo user={data.user}/>
                                 <Card.Subtitle className="my-2">
                                     {t("authors-assessment")}
                                     {data.authorsAssessment}

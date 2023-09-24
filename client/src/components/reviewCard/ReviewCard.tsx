@@ -20,7 +20,7 @@ function ReviewCard({ review }: ICardProps) {
 
     return (
         <Card className={`${styles.card} bg-light text-center m-2 p-1`}>
-            <Link to={`/review/${review.id}`} className={`text-decoration-none ${styles.link}`}>
+            <Link to={`/review/${review.id}`} className="text-decoration-none link">
                 <Card.Title className={styles.title}>{review.reviewName}</Card.Title>
                 <Card.Img
                     variant="top"
