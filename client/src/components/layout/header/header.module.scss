@@ -1,13 +1,11 @@
 @import "../../../styles/constants";
 
 .btn {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    height: 40px;
 }
 
-@media (max-width: $sm-width) {
+@media (max-width: $md-width) {
     .btn {
-        width: 70px;
+        width: 150px;
     }
 }

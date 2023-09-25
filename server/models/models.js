@@ -56,6 +56,11 @@ const Rating = sequelize.define("rating", {
     },
 })
 
+const Comment = sequelize.define("comment", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    text: { type: DataTypes.TEXT, allowNull: false },
+})
+
 User.hasOne(Token);
 Token.belongsTo(User);
 User.hasMany(Review);
@@ -72,5 +77,9 @@ User.hasMany(Rating);
 Rating.belongsTo(User);
 Review.hasMany(Rating);
 Rating.belongsTo(Review);
+Review.hasMany(Comment);
+Comment.belongsTo(Review);
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
-module.exports = { User, Token, Review, ReviewGroup, Tag, Like, Rating };
+module.exports = { User, Token, Review, ReviewGroup, Tag, Like, Rating, Comment };
