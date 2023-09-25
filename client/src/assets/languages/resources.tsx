@@ -39,6 +39,10 @@ export const resources = {
             "last-reviews": "Last added reviews",
             "my-page": "My page",
             "less-image": "Please choose image less then 5MB",
+            "sign-in-comment": "Sign in to leave a comment",
+            "comments": "Comments",
+            "enter-comment": "Enter comment",
+            "no-comment": "No comments yet:( Fix it!",
         },
     },
     RUS: {
@@ -81,6 +85,10 @@ export const resources = {
             "last-reviews": "Последние добавленные обзоры",
             "my-page": "Моя страница",
             "less-image": "Пожалуйста, загрузите картинку меньше 5MB",
+            "sign-in-comment": "Зарешистрируйтсь, чтобы оставить комментарий",
+            "comments": "Комментарии",
+            "enter-comment": "Напишите комментарий здесь",
+            "no-comment": "Пока нет комментариев:( Исправь это!",
         },
     },
 };

@@ -61,7 +61,7 @@ function Header() {
                             {currentUserId ? (
                                 <>
                                     <NavLink to={`/user/${currentUserId}`}>
-                                        <Button className={styles.btn}>{t("my-page")}</Button>
+                                        <Button className={`${styles.btn} me-1`}>{t("my-page")}</Button>
                                     </NavLink>
                                     <Button onClick={logOut} className={styles.btn}>
                                         {t("log-out")}
@@ -70,7 +70,7 @@ function Header() {
                             ) : (
                                 <>
                                     <NavLink to="/sign-in" >
-                                        <Button className={styles.btn}>{t("sign-in")}</Button>
+                                        <Button className={`${styles.btn} me-1`}>{t("sign-in")}</Button>
                                     </NavLink>
                                     <NavLink to="/sign-up">
                                         <Button className={styles.btn}>{t("sign-up")}</Button>

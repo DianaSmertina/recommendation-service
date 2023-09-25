@@ -31,7 +31,7 @@ function ReviewInfo() {
                 {isError && <p>{t("error")}</p>}
                 {data && (
                     <>
-                        <Col xs={4} md={3}>
+                        <Col xs={12} md={3} className="d-flex justify-content-center d-md-block">
                             <Image
                                 src={
                                     data.image || defaultImage
@@ -63,11 +63,11 @@ function ReviewInfo() {
                                     {data.authorsAssessment}
                                 </Card.Subtitle>
                                 {t("tags")}
-                                <div className="d-flex mb-3">
+                                <div className="d-flex flex-wrap mb-2">
                                     {data.tags.map((tag) => (
                                         <div
                                             key={tag.id}
-                                            className={`me-2 bg-info p-1 ${styles.tag}`}
+                                            className={`m-1 bg-info p-1 ${styles.tag}`}
                                         >
                                             {tag.tag}
                                         </div>

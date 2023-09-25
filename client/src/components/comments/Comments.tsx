@@ -3,12 +3,14 @@ import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 import CommentApi from "../../api/CommentApi";
 import { IComment } from "../../types/types";
 import { RootState } from "../../redux/store";
 import ExistingComments from "./existingComments/ExistingComments";
 import NewComment from "./newComment/NewComment";
+import displayError from "../errorsHelpers/requestError";
 
 const socket = io("http://localhost:5000");
 
@@ -17,6 +19,7 @@ function Comments() {
     const [messages, setMessages] = useState<Array<IComment>>([]);
     const [message, setMessage] = useState("");
     const userId = useSelector((state: RootState) => state.user.id);
+    const { t } = useTranslation();
 
     useEffect(() => {
         socket.emit("joinRoom", reviewId);
@@ -29,21 +32,27 @@ function Comments() {
     }, [reviewId, messages]);
 
     const sendMessage = async () => {
-        if (userId && reviewId) {
-            const sendedMessage = await CommentApi.addComment({
-                userId,
-                reviewId,
-                text: message,
-            });
-            socket.emit("message", reviewId, sendedMessage.data);
-            setMessage("");
+        try {
+            if (userId && reviewId) {
+                const sendedMessage = await CommentApi.addComment({
+                    userId,
+                    reviewId,
+                    text: message,
+                });
+                socket.emit("message", reviewId, sendedMessage.data);
+                setMessage("");
+            } else if (!userId) {
+                throw new Error(t("sign-in-comment"));
+            }
+        } catch(e) {
+            displayError(e as Error);
         }
     };
 
     return (
         <Row className="justify-content-end">
-            <Col xs={8} md={9} className="px-4">
-                <h4 className="text-center my-2">Comments</h4>
+            <Col xs={12} md={9} className="px-4">
+                <h4 className="text-center my-2">{t("comments")}</h4>
                 <ExistingComments messages={messages} setMessages={setMessages} />
                 <NewComment sendMessage={sendMessage} message={message} setMessage={setMessage} />
             </Col>

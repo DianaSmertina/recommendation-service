@@ -1,3 +1,5 @@
+@import "../../styles/constants";
+
 .image {
     max-width: 100%;
     max-height: 100%;
@@ -14,4 +16,12 @@
 
 .tag {
     border-radius: 5px;
+}
+
+@media (max-width: $md-width) {
+    .image {
+        max-width: 200px;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
 }

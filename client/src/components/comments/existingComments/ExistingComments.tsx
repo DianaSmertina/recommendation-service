@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import { IComment } from "../../../types/types";
 import CommentApi from "../../../api/CommentApi";
@@ -15,6 +16,7 @@ interface IExistingCommentsProps {
 function ExistingComments({ messages, setMessages }: IExistingCommentsProps) {
     const { reviewId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         try {
@@ -31,7 +33,7 @@ function ExistingComments({ messages, setMessages }: IExistingCommentsProps) {
     return (
         <Row>
             {isLoading && <Spinner />}
-            {!isLoading && messages.length === 0 && <p>No comments yet. Fix it!</p>}
+            {!isLoading && messages.length === 0 && <p>{t("no-comment")}</p>}
             {!isLoading && messages.length !== 0 && (
                 messages.map((msg) => (
                     <Comment key={msg.id} message={msg} />
