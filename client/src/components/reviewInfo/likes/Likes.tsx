@@ -8,12 +8,14 @@ import { RootState } from "../../../redux/store";
 import LikeApi from "../../../api/LikeApi";
 import displayError from "../../errorsHelpers/requestError";
 import likeImage from "../../../assets/favorite.png";
+import { useCountUserLikesQuery } from "../../../redux/reviewsApi";
 
-function Likes() {
+function Likes({authorsId}: {authorsId: number}) {
     const [isLike, setIsLike] = useState(false);
     const [reviewLikesCount, setReviewLikesCount] = useState<number>();
     const { reviewId } = useParams();
     const userId = useSelector((state: RootState) => state.user.id);
+    const { refetch } = useCountUserLikesQuery(authorsId);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -43,6 +45,7 @@ function Likes() {
                         return ++prev;
                     } 
                 });
+                refetch();
             } else if (!userId) {
                 throw new Error(t("sign-in-like"));
             } else if (isLike) {

@@ -1,25 +1,13 @@
-import { useState, useEffect } from "react";
-import displayError from "../errorsHelpers/requestError";
-import LikeApi from "../../api/LikeApi";
-import { IUser } from "../../types/types";
 import { Link } from "react-router-dom";
 import { Card, Image } from "react-bootstrap";
+
+import { IUser } from "../../types/types";
 import defaultImage from "../../assets/default.jpg";
 import likeImage from "../../assets/favorite.png";
+import { useCountUserLikesQuery } from "../../redux/reviewsApi";
 
 function UserBriefInfo({ user }: { user: IUser }) {
-    const [userLikeCount, setUserLikeCount] = useState<number>();
-
-    useEffect(() => {
-        (async function () {
-            try {
-                const result = await LikeApi.getCountForUser(user.id);
-                setUserLikeCount(result.data);
-            } catch (e) {
-                displayError(e as Error);
-            }
-        })();
-    }, [user]);
+    const { data } = useCountUserLikesQuery(user.id);
 
     return (
         <Link
@@ -42,7 +30,7 @@ function UserBriefInfo({ user }: { user: IUser }) {
                         height={10}
                         className="me-1"
                     />
-                    {userLikeCount}
+                    {data}
                 </div>
             </Card.Subtitle>
         </Link>

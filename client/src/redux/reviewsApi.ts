@@ -19,7 +19,14 @@ export const reviewsApi = createApi({
                 };
             },
         }),
+        countUserLikes: builder.query<number, number>({
+            query: (userId) => {
+                return {
+                    url: `like/count/user?userId=${userId}`,
+                }
+            }
+        })
     }),
 });
 
-export const { useGetByTagQuery, useGetByIdQuery } = reviewsApi;
+export const { useGetByTagQuery, useGetByIdQuery, useCountUserLikesQuery } = reviewsApi;

@@ -14,10 +14,6 @@ class LikeApi {
     static async getCountForReview(reviewId: string): Promise<AxiosResponse<number>> {
         return api.get(`like/count/review?reviewId=${reviewId}`);
     }
-
-    static async getCountForUser(userId: number): Promise<AxiosResponse<number>> {
-        return api.get(`like/count/user?userId=${userId}`);
-    }
 }
 
 export default LikeApi;

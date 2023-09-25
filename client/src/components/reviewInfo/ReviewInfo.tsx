@@ -53,7 +53,7 @@ function ReviewInfo() {
                                 </Card.Subtitle>
                                 <Row className="my-1">
                                     <Rating />
-                                    <Likes />
+                                    <Likes authorsId={data.userId}/>
                                 </Row>
                             </Card>
                             <Card border="light" className="p-3">
