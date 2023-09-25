@@ -12,7 +12,7 @@ import ExistingComments from "./existingComments/ExistingComments";
 import NewComment from "./newComment/NewComment";
 import displayError from "../errorsHelpers/requestError";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://recommendation-service-server.onrender.com");
 
 function Comments() {
     const { reviewId } = useParams();
